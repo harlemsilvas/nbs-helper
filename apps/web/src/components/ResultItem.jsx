@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, Check, Star } from "lucide-react";
+import { trackCopy } from "../services/analytics";
 
 export default function ResultItem({ item, isFavorite, onToggleFavorite }) {
   const [copied, setCopied] = useState(null);
@@ -8,6 +9,7 @@ export default function ResultItem({ item, isFavorite, onToggleFavorite }) {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(type);
+      trackCopy(item.code, type);
       setTimeout(() => setCopied(null), 2000);
     } catch (err) {
       console.error("Erro ao copiar:", err);

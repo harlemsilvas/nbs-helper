@@ -3,6 +3,7 @@ import SearchBar from "./components/SearchBar";
 import ResultsList from "./components/ResultsList";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
+import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange } from "./services/analytics";
 import { BookOpen, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
     try {
       const searchResults = await searchNBS(query);
       setResults(searchResults);
+      trackSearch(query, searchResults.length);
     } catch (error) {
       console.error("Erro na busca:", error);
     } finally {
@@ -55,9 +57,11 @@ function App() {
     if (isFav) {
       const updated = removeFavorite(item.code);
       setFavorites(updated);
+      trackFavorite(item.code, false);
     } else {
       const updated = addFavorite(item);
       setFavorites(updated);
+      trackFavorite(item.code, true);
     }
   };
 
@@ -66,6 +70,7 @@ function App() {
     setCurrentPage(1);
     if (!showFavorites) {
       setResults(favorites);
+      trackViewFavorites();
     } else {
       handleSearch("");
     }
@@ -80,6 +85,7 @@ function App() {
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
+      trackPageChange(currentPage + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -87,6 +93,7 @@ function App() {
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      trackPageChange(currentPage - 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
