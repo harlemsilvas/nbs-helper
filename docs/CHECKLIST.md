@@ -1,8 +1,8 @@
-# ✅ Checklist de Validação do MVP
+# Checklist de Validação
 
 Execute este checklist para confirmar que tudo está funcionando:
 
-## 🔍 Verificações Técnicas
+## Verificações Técnicas
 
 ### 1. Estrutura de Arquivos
 ```bash
@@ -47,7 +47,7 @@ curl http://localhost:5173
 - [ ] Retorna HTML (não erro)
 - [ ] Webapp acessível no navegador
 
-## 🎯 Testes Funcionais (Manual)
+## Testes Funcionais
 
 ### No Navegador (http://localhost:5173)
 

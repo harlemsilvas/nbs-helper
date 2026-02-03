@@ -1,14 +1,14 @@
-# 🚀 Deploy no GitHub + Vercel - Guia Completo
+# Deploy no GitHub + Vercel - Guia Completo
 
-## ✅ Status Atual
-- [x] Git inicializado
-- [x] Branch `main` criada
-- [x] Commit inicial feito (47 arquivos)
-- [x] Pronto para push
+## Status Atual
+- Git inicializado
+- Branch `main` criada
+- Commits feitos
+- Pronto para push
 
 ---
 
-## 📋 Passo a Passo
+## Passo a Passo
 
 ### 1. Criar Repositório no GitHub
 
@@ -18,9 +18,9 @@
    - **Repository name:** `nbs-helper` (ou outro nome)
    - **Description:** `MicroSaaS para busca de códigos NBS 2.0 em emissão de NFS-e`
    - **Visibility:** Public ou Private
-   - **❌ NÃO** marque "Initialize with README"
-   - **❌ NÃO** adicione .gitignore
-   - **❌ NÃO** adicione license
+   - **NÃO** marque "Initialize with README"
+   - **NÃO** adicione .gitignore
+   - **NÃO** adicione license
 3. Clique em **"Create repository"**
 
 #### Opção B: Via GitHub CLI (se tiver instalado)
@@ -46,8 +46,6 @@ git remote -v
 # Fazer push
 git push -u origin main
 ```
-
-**Ou copie e execute este comando (vou preparar):**
 
 ---
 

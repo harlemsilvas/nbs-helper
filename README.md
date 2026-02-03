@@ -1,107 +1,153 @@
 # NBS Helper - MicroSaaS para NFS-e
 
-> 🚀 **MVP COMPLETO E FUNCIONANDO!** Ferramenta para busca rápida de códigos NBS 2.0 (Nomenclatura Brasileira de Serviços) para emissão de NFS-e.
+> Ferramenta para busca rápida de códigos NBS 2.0 (Nomenclatura Brasileira de Serviços) para emissão de NFS-e.
 
-![Status](https://img.shields.io/badge/status-MVP%20Completo-success)
+![Status](https://img.shields.io/badge/status-Production-success)
 ![NBS](https://img.shields.io/badge/NBS-2.0-blue)
 ![Códigos](https://img.shields.io/badge/códigos-1237-orange)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-## 🎯 Problema Resolvido
+## 🎯 Sobre o Projeto
 
-Encontrar o código NBS correto para emissão de NFS-e é demorado e confuso. Esta ferramenta resolve isso com:
-- 🔍 Busca inteligente por descrição
-- ⚡ 1237 códigos NBS 2.0 disponíveis
-- 📋 Copiar código/descrição com 1 clique
-- ⭐ Sistema de favoritos
-- 📱 Interface responsiva
+Emitir NFS-e exige o código correto da NBS (Nomenclatura Brasileira de Serviços). Encontrar esse código manualmente em tabelas PDF é lento e propenso a erros.
 
-## 🚀 Quick Start
+**NBS Helper** resolve este problema oferecendo:
+- 🔍 Busca inteligente por descrição do serviço
+- ⚡ Base completa com 1237 códigos oficiais NBS 2.0
+- 📋 Copiar código/descrição com um clique
+- ⭐ Sistema de favoritos para códigos frequentes
+- 📱 Interface responsiva (desktop e mobile)
+
+## 🚀 Instalação e Uso
+
+### Pré-requisitos
+- Node.js 18+ 
+- npm ou pnpm
+
+### Passos
 
 ```bash
-# 1. Instalar dependências
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/nbs-helper.git
+cd nbs-helper
+
+# 2. Instale as dependências
 npm install
 
-# 2. Já está tudo pronto! Rodar webapp
+# 3. Inicie o servidor de desenvolvimento
 npm run dev:web
 ```
 
-**Acesse:** http://localhost:5173 🎉
+Acesse: **http://localhost:5173**
 
-### Dados já processados
-✅ CSV oficial baixado (1237 códigos)  
-✅ Índice de busca gerado  
-✅ Webapp funcionando  
+### Dados NBS
+A base de dados já está processada e pronta para uso. Para atualizar com a versão mais recente do gov.br:  
 
-## 📁 Estrutura
+```bash
+npm run prepare:data
+```
+
+## 📁 Estrutura do Projeto
 
 ```
 nbs-helper/
 ├── apps/
-│   ├── web/          # React webapp (Vite)
-│   └── api/          # Node.js API (Express)
+│   ├── web/          # Frontend React (Vite + Tailwind)
+│   └── api/          # Backend Node.js (Express)
 ├── packages/
-│   └── shared/       # Tipos e utils compartilhados
-├── scripts/          # Scripts de importação
+│   └── shared/       # Código compartilhado
+├── scripts/          # Scripts de processamento
 ├── data/
-│   ├── raw/          # CSV original
-│   └── generated/    # JSON processado
-└── package.json      # Workspace root
+│   ├── raw/          # CSV original do gov.br
+│   └── generated/    # Dados processados (JSON)
+├── docs/             # Documentação
+└── package.json      # Configuração do workspace
 ```
 
-## 📦 Scripts Disponíveis
+## 🔧 Comandos Disponíveis
 
-- `npm run import:nbs` - Importa CSV da NBS para JSON
+**Desenvolvimento:**
+- `npm run dev:web` - Inicia servidor de desenvolvimento
+- `npm run dev:api` - Inicia API em modo dev
+
+**Build:**
+- `npm run build:web` - Build para produção
+
+**Dados:**
+- `npm run prepare:data` - Atualiza base de dados NBS
+- `npm run import:nbs` - Importa CSV
 - `npm run build:index` - Gera índice de busca
-- `npm run prepare:data` - Executa importação + índice
-- `npm run dev:web` - Inicia webapp em dev
-- `npm run dev:api` - Inicia API em dev
 
-## 🔧 Tecnologias
+## � Tecnologias
 
-- **Frontend**: React + Vite + Tailwind CSS + Fuse.js
-- **Backend**: Node.js + Express
-- **Dados**: CSV oficial NBS 2.0 (gov.br)
+**Frontend:**
+- React 18
+- Vite 
+- Tailwind CSS
+- Fuse.js (busca fuzzy)
+- Lucide React (ícones)
 
-## 📝 Roadmap
+**Backend:**
+- Node.js + Express
+- CSV Parse
+- Iconv-lite (encoding)
 
-### ✅ Semana 1 - MVP Local (COMPLETO!)
-- [x] Estrutura do projeto
-- [x] Importador CSV funcionando (1237 códigos)
+**Dados:**
+- Base oficial NBS 2.0 (Ministério do Desenvolvimento)
+
+## 🗺️ Roadmap
+
+### ✅ Fase 1 - MVP (Concluído)
+- [x] Importador de dados NBS 2.0
 - [x] Webapp com busca inteligente
-- [x] Interface responsiva com Tailwind
-- [x] Favoritos local
+- [x] Interface responsiva
+- [x] Sistema de favoritos local
 - [x] API REST básica
 
-### 🔄 Semana 2 - MVP SaaS
-- [ ] Deploy webapp (Vercel)
-- [ ] Deploy API (Render/Railway)
-- [ ] Conectar webapp à API
+### 🔄 Fase 2 - SaaS (Em andamento)
+- [ ] Deploy em produção
+- [ ] Analytics e métricas
+- [ ] SEO otimizado
 
-### 🎯 30 dias - Produto Pro
-- [ ] Login (Google OAuth)
-- [ ] Favoritos na nuvem
-- [ ] Templates por empresa
-- [ ] Extensão do navegador
-
-## 🎯 Como Testar
-
-1. **Webapp já está rodando:** http://localhost:5173
-2. **Teste a busca:** Digite "software", "consultoria", "desenvolvimento"
-3. **Favoritos:** Clique na estrela para adicionar aos favoritos
-4. **Copiar:** Use os botões para copiar código ou descrição
+### 🎯 Fase 3 - Features Pro
+- [ ] Autenticação (Google OAuth)
+- [ ] Favoritos sincronizados na nuvem
+- [ ] Templates por empresa/perfil
+- [ ] Extensão de navegador
+- [ ] Exportação de catálogos
 
 ## 📚 Documentação
 
-- [GETTING_STARTED.md](GETTING_STARTED.md) - Guia completo de uso
-- [Projeto.md](Projeto.md) - Plano detalhado do MVP
-- [Ideia.md](Ideia.md) - Conceito e estratégia
+- [Guia de Início](docs/GETTING_STARTED.md) - Como usar o projeto
+- [Comandos](docs/COMANDOS.md) - Referência rápida
+- [Troubleshooting](docs/TROUBLESHOOTING.md) - Solução de problemas
+- [Deploy](docs/DEPLOY_GUIDE.md) - Guia de deploy
+- [Índice Completo](docs/DOCS_INDEX.md) - Toda documentação
 
-## 🚨 Avisos
+## ⚠️ Disclaimer
 
-⚠️ **Ferramenta de apoio** - Sempre confirme com seu contador e a legislação municipal  
-🔒 **Privacidade** - Não coleta dados sensíveis do usuário  
-📱 **Responsivo** - Funciona em desktop e mobile
+Esta é uma **ferramenta de apoio** para facilitar a busca de códigos NBS. Sempre confirme as informações com seu contador e verifique a legislação específica do seu município.
+
+O projeto não coleta dados pessoais ou informações sensíveis dos usuários.
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para:
+
+1. Fazer fork do projeto
+2. Criar uma branch para sua feature (`git checkout -b feature/NovaFeature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona NovaFeature'`)
+4. Push para a branch (`git push origin feature/NovaFeature`)
+5. Abrir um Pull Request
 
 ## 📄 Licença
 
-MIT
+MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+## 📞 Suporte
+
+Para reportar bugs ou sugerir melhorias, abra uma [issue](https://github.com/seu-usuario/nbs-helper/issues).
+
+---
+
+**Fonte dos dados:** [Ministério do Desenvolvimento, Indústria, Comércio e Serviços](https://www.gov.br/mdic/pt-br/assuntos/sdic/comercio-e-servicos/nbs-nomenclatura-brasileira-de-servicos)

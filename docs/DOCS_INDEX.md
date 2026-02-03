@@ -1,9 +1,9 @@
-# 📚 Documentação - NBS Helper
+# Documentação - NBS Helper
 
 ## Índice Completo
 
-### 🚀 Começando
-1. **[README.md](README.md)** - Visão geral do projeto
+### Começando
+1. **[README.md](../README.md)** - Visão geral do projeto
    - O que é o NBS Helper
    - Quick start
    - Estrutura do projeto
@@ -15,53 +15,44 @@
    - Como usar API
    - Comandos úteis
 
-3. **[MVP_COMPLETO.md](MVP_COMPLETO.md)** - Status do MVP
-   - O que foi entregue
+3. **[MVP_COMPLETO.md](MVP_COMPLETO.md)** - Status do projeto
+   - Recursos implementados
    - Funcionalidades
    - Estatísticas
-   - Próximos passos
 
 4. **[RESUMO_EXECUTIVO.md](RESUMO_EXECUTIVO.md)** - Resumo executivo
    - Entrega completa
    - Métricas
    - Destaques
-   - Conclusão
 
----
-
-### 📋 Planejamento
-5. **[Projeto.md](Projeto.md)** - Plano detalhado do MVP
-   - Arquitetura
-   - Roadmap
-   - Cronograma
-   - Tarefas por semana
-
-6. **[Ideia.md](Ideia.md)** - Conceito original
-   - Problema
-   - Solução
-   - Modelo de negócio
-   - Estratégia
-
----
-
-### 🔧 Desenvolvimento
-7. **[COMANDOS.md](COMANDOS.md)** - Referência rápida
+### Desenvolvimento
+5. **[COMANDOS.md](COMANDOS.md)** - Referência rápida
    - Comandos de desenvolvimento
    - Build e deploy
    - Testes
    - Git
 
-8. **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solução de problemas
+6. **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solução de problemas
    - Erros comuns
    - Soluções
    - Debug
    - Reset completo
 
-9. **[CHECKLIST.md](CHECKLIST.md)** - Testes de validação
+7. **[CHECKLIST.md](CHECKLIST.md)** - Testes de validação
    - Verificações técnicas
    - Testes funcionais
    - Testes de UX
    - Edge cases
+
+8. **[FIX_ENCODING.md](FIX_ENCODING.md)** - Correção de encoding
+   - Problema identificado
+   - Solução aplicada
+   - Verificação
+
+9. **[DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)** - Guia de deploy
+   - GitHub setup
+   - Vercel deployment
+   - Configurações
 
 ---
 

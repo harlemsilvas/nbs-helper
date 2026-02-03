@@ -1,35 +1,32 @@
-# MVP NBS Helper - Instruções de Uso
+# NBS Helper - Guia de Início
 
-## ✅ Setup Completo!
+## Estrutura do Projeto
 
-Seu MVP está funcionando! Aqui está o que foi criado:
-
-### 📂 Estrutura
 ```
 nbs-helper/
 ├── apps/
-│   ├── web/          ✅ React + Vite + Tailwind (rodando em http://localhost:5173)
-│   └── api/          ✅ Express API (pronta para rodar)
-├── scripts/          ✅ Importadores CSV
+│   ├── web/          # React + Vite + Tailwind
+│   └── api/          # Express API
+├── scripts/          # Importadores CSV
 ├── data/
-│   ├── raw/          ✅ NBSa_2-0.csv (1237 códigos)
-│   └── generated/    ✅ index.json gerado
+│   ├── raw/          # NBSa_2-0.csv (1237 códigos)
+│   └── generated/    # index.json gerado
 ```
 
 ## 🚀 Como Usar
 
-### 1. Webapp (já rodando!)
+### 1. Webapp
 ```bash
 npm run dev:web
 ```
 Acesse: **http://localhost:5173**
 
 **Funcionalidades:**
-- ✅ Busca inteligente por descrição
-- ✅ 1237 códigos NBS 2.0 disponíveis
-- ✅ Copiar código/descrição com 1 clique
-- ✅ Favoritos (salvo no navegador)
-- ✅ Interface responsiva
+- Busca inteligente por descrição
+- 1237 códigos NBS 2.0 disponíveis
+- Copiar código/descrição com 1 clique
+- Favoritos (salvo no navegador)
+- Interface responsiva
 
 ### 2. API (opcional)
 ```bash

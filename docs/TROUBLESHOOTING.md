@@ -1,6 +1,6 @@
-# 🔧 Troubleshooting - NBS Helper
+# Troubleshooting - NBS Helper
 
-## Problema: Acentos errados no CSV (CORRIGIDO!)
+## Problema: Acentos errados no CSV
 
 ### Sintomas:
 - "DESCRI��O" ao invés de "DESCRIÇÃO"
@@ -10,8 +10,8 @@
 ### Causa:
 CSV do gov.br está em **ISO-8859-1**, mas estava sendo lido como UTF-8.
 
-### Solução (já aplicada):
-O script agora detecta automaticamente o encoding e converte para UTF-8.
+### Solução:
+O script detecta automaticamente o encoding e converte para UTF-8.
 
 ```bash
 # Re-importar com encoding correto
@@ -20,8 +20,6 @@ npm run prepare:data
 # Copiar para webapp
 cp data/generated/index.json apps/web/public/
 ```
-
-**Status:** ✅ Corrigido automaticamente!
 
 ---
 
@@ -32,7 +30,7 @@ cp data/generated/index.json apps/web/public/
 [postcss] It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin
 ```
 
-### Solução (já aplicada):
+### Solução:
 ```bash
 cd apps/web
 npm uninstall tailwindcss
@@ -40,7 +38,7 @@ npm install -D tailwindcss@^3
 npm run dev
 ```
 
-**Causa:** Tailwind v4 mudou a arquitetura. Projeto está usando v3 (estável).
+**Causa:** Tailwind v4 mudou a arquitetura. Use v3 para compatibilidade.
 
 ---
 
