@@ -3,7 +3,7 @@ import SearchBar from "./components/SearchBar";
 import ResultsList from "./components/ResultsList";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
-import { BookOpen, X } from "lucide-react";
+import { BookOpen, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 function App() {
   const [results, setResults] = useState([]);
@@ -11,6 +11,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [showFavorites, setShowFavorites] = useState(false);
   const [dataInfo, setDataInfo] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(20);
 
   useEffect(() => {
     // Carregar índice e favoritos na inicialização
@@ -37,6 +39,7 @@ function App() {
   const handleSearch = async (query) => {
     setLoading(true);
     setShowFavorites(false);
+    setCurrentPage(1);
     try {
       const searchResults = await searchNBS(query);
       setResults(searchResults);
@@ -60,10 +63,31 @@ function App() {
 
   const handleShowFavorites = () => {
     setShowFavorites(!showFavorites);
+    setCurrentPage(1);
     if (!showFavorites) {
       setResults(favorites);
     } else {
       handleSearch("");
+    }
+  };
+
+  // Cálculos de paginação
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentResults = results.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(results.length / itemsPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -112,15 +136,45 @@ function App() {
         )}
 
         <ResultsList
-          results={results}
+          results={currentResults}
           loading={loading}
           favorites={favorites}
           onToggleFavorite={handleToggleFavorite}
         />
 
         {!loading && results.length > 0 && (
-          <div className="mt-6 text-center text-sm text-gray-500">
-            Mostrando {results.length} resultado{results.length !== 1 ? "s" : ""}
+          <div className="mt-6 space-y-4">
+            <div className="text-center text-sm text-gray-500">
+              Mostrando {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, results.length)} de {results.length} resultado{results.length !== 1 ? "s" : ""}
+            </div>
+            
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  onClick={handlePrevPage}
+                  disabled={currentPage === 1}
+                  className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Anterior
+                </button>
+                
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600">
+                    Página {currentPage} de {totalPages}
+                  </span>
+                </div>
+                
+                <button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Próxima
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
           </div>
         )}
       </main>
