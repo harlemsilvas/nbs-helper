@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# Data gerados (não versionar - gerar localmente)
+data/generated/*.json
+
+# Cache
+.cache/
+.vite/
+.rolldown/
+
+# Temp
+tmp/
+temp/
+
+# Package locks (opcional)
+package-lock.json

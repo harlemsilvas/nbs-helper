@@ -1,0 +1,144 @@
+import { useState, useEffect } from "react";
+import SearchBar from "./components/SearchBar";
+import ResultsList from "./components/ResultsList";
+import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
+import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
+import { BookOpen, X } from "lucide-react";
+
+function App() {
+  const [results, setResults] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [dataInfo, setDataInfo] = useState(null);
+
+  useEffect(() => {
+    // Carregar índice e favoritos na inicialização
+    const init = async () => {
+      setLoading(true);
+      try {
+        await loadIndex();
+        const info = getDatasetInfo();
+        setDataInfo(info);
+        setFavorites(getFavorites());
+        
+        // Mostrar resultados iniciais
+        const initial = await searchNBS("");
+        setResults(initial);
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    init();
+  }, []);
+
+  const handleSearch = async (query) => {
+    setLoading(true);
+    setShowFavorites(false);
+    try {
+      const searchResults = await searchNBS(query);
+      setResults(searchResults);
+    } catch (error) {
+      console.error("Erro na busca:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleToggleFavorite = (item) => {
+    const isFav = favorites.some((f) => f.code === item.code);
+    if (isFav) {
+      const updated = removeFavorite(item.code);
+      setFavorites(updated);
+    } else {
+      const updated = addFavorite(item);
+      setFavorites(updated);
+    }
+  };
+
+  const handleShowFavorites = () => {
+    setShowFavorites(!showFavorites);
+    if (!showFavorites) {
+      setResults(favorites);
+    } else {
+      handleSearch("");
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="flex items-center gap-3">
+            <BookOpen className="w-8 h-8" />
+            <div>
+              <h1 className="text-2xl font-bold">NBS Helper</h1>
+              <p className="text-blue-100 text-sm">
+                Busca rápida de códigos NBS 2.0 para NFS-e
+              </p>
+            </div>
+          </div>
+          {dataInfo && (
+            <div className="mt-3 text-xs text-blue-100">
+              <span className="bg-blue-800/30 px-2 py-1 rounded">
+                {dataInfo.totalItems} códigos disponíveis • Versão {dataInfo.version}
+              </span>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Search Bar */}
+      <SearchBar onSearch={handleSearch} onShowFavorites={handleShowFavorites} />
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 py-6">
+        {showFavorites && (
+          <div className="mb-4 flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
+            <div className="flex items-center gap-2 text-yellow-800">
+              <span className="font-medium">Exibindo favoritos</span>
+              <span className="text-sm">({favorites.length} itens)</span>
+            </div>
+            <button
+              onClick={handleShowFavorites}
+              className="text-yellow-700 hover:text-yellow-900"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        )}
+
+        <ResultsList
+          results={results}
+          loading={loading}
+          favorites={favorites}
+          onToggleFavorite={handleToggleFavorite}
+        />
+
+        {!loading && results.length > 0 && (
+          <div className="mt-6 text-center text-sm text-gray-500">
+            Mostrando {results.length} resultado{results.length !== 1 ? "s" : ""}
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="mt-12 py-6 bg-white border-t">
+        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-600">
+          <p>
+            ⚠️ <strong>Ferramenta de apoio.</strong> Confirme com seu contador e a
+            legislação do seu município.
+          </p>
+          <p className="mt-2 text-xs text-gray-500">
+            Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de Serviços) • gov.br
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default App;

@@ -1,0 +1,31 @@
+{
+  "name": "nbs-helper",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MicroSaaS para busca de códigos NBS 2.0 em emissão de NFS-e",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "import:nbs": "node scripts/import_nbs_node.js",
+    "build:index": "node scripts/build_index.js",
+    "prepare:data": "npm run import:nbs && npm run build:index",
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev:api": "npm --workspace apps/api run dev",
+    "build:web": "npm --workspace apps/web run build",
+    "build:api": "npm --workspace apps/api run build"
+  },
+  "keywords": [
+    "nbs",
+    "nfs-e",
+    "nota-fiscal",
+    "servicos"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "csv-parse": "^5.5.3",
+    "iconv-lite": "^0.6.3"
+  }
+}

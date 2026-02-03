@@ -1,0 +1,11 @@
+{
+  "name": "shared",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Tipos e utils compartilhados",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./types": "./src/types.js"
+  }
+}
