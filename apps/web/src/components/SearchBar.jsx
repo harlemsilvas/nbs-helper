@@ -108,11 +108,11 @@ const SearchBar = forwardRef(({ onSearch, onShowFavorites }, ref) => {
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700 sticky top-0 z-10">
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <div className="flex items-center gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <form onSubmit={handleSubmit} className="flex-1 relative" ref={searchRef}>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
               <input
                 ref={inputRef}
                 type="text"
@@ -120,8 +120,8 @@ const SearchBar = forwardRef(({ onSearch, onShowFavorites }, ref) => {
                 onChange={handleInputChange}
                 onFocus={() => setShowSuggestions(true)}
                 onKeyDown={handleKeyDown}
-                placeholder="Buscar serviço (ex: desenvolvimento de software, consultoria TI...)"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
+                placeholder="Buscar serviço..."
+                className="w-full pl-8 sm:pl-10 pr-8 sm:pr-10 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 autoComplete="off"
               />
               {query && (
@@ -131,9 +131,9 @@ const SearchBar = forwardRef(({ onSearch, onShowFavorites }, ref) => {
                     setQuery('');
                     onSearch('');
                   }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               )}
             </div>
@@ -189,9 +189,9 @@ const SearchBar = forwardRef(({ onSearch, onShowFavorites }, ref) => {
           </form>
           <button
             onClick={onShowFavorites}
-            className="flex items-center gap-2 px-4 py-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors border border-yellow-200 dark:border-yellow-800"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors border border-yellow-200 dark:border-yellow-800"
           >
-            <Star className="w-5 h-5" />
+            <Star className="w-4 h-4 sm:w-5 sm:h-5" />
             <span className="hidden sm:inline">Favoritos</span>
           </button>
         </div>

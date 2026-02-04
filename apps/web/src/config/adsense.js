@@ -24,11 +24,11 @@ export const ADSENSE_CONFIG = {
     // Frequência de anúncios in-feed (a cada X resultados)
     inFeedFrequency: 10,
     
-    // Exibir anúncios
-    showHeaderBanner: true,
-    showFooterBanner: true,
-    showSidebarBanner: false, // Desabilitado por padrão (layout sem sidebar)
-    showInFeedAds: true,
+    // Exibir anúncios - DESATIVADO até ter Publisher ID válido
+    showHeaderBanner: false,
+    showFooterBanner: false,
+    showSidebarBanner: false,
+    showInFeedAds: false,
   }
 };
 

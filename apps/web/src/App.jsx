@@ -133,21 +133,21 @@ function App() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
       <header className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-800 dark:to-blue-900">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <BookOpen className="w-8 h-8 text-white" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               <div>
-                <h1 className="text-2xl font-bold text-white">NBS Helper</h1>
-                <p className="text-blue-100 text-sm">
+                <h1 className="text-lg sm:text-2xl font-bold text-white">NBS Helper</h1>
+                <p className="text-blue-100 text-xs sm:text-sm hidden xs:block">
                   Busca rápida de códigos NBS 2.0 para NFS-e
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3">
               <button
                 onClick={() => setShowHelp(true)}
-                className="text-blue-100 hover:text-white transition-colors text-sm px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
+                className="text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
                 title="Atalhos de teclado (?)"
               >
                 <span className="hidden sm:inline">Atalhos</span>
@@ -157,9 +157,11 @@ function App() {
             </div>
           </div>
           {dataInfo && (
-            <div className="mt-3 text-xs text-blue-100">
+            <div className="mt-2 sm:mt-3 text-xs text-blue-100">
               <span className="bg-blue-800/30 px-2 py-1 rounded">
-                {dataInfo.totalItems} códigos disponíveis • Versão {dataInfo.version}
+                <span className="hidden xs:inline">{dataInfo.totalItems} códigos • </span>
+                <span className="xs:hidden">{dataInfo.totalItems} • </span>
+                v{dataInfo.version}
               </span>
             </div>
           )}
@@ -203,34 +205,36 @@ function App() {
         />
 
         {!loading && results.length > 0 && (
-          <div className="mt-6 space-y-4">
-            <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+          <div className="mt-6 space-y-3 sm:space-y-4">
+            <div className="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400">
               Mostrando {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, results.length)} de {results.length} resultado{results.length !== 1 ? "s" : ""}
             </div>
             
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center gap-2 sm:gap-4">
                 <button
                   onClick={handlePrevPage}
                   disabled={currentPage === 1}
-                  className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-700 dark:text-gray-200"
+                  className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-sm sm:text-base bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-700 dark:text-gray-200"
                 >
                   <ChevronLeft className="w-4 h-4" />
-                  Anterior
+                  <span className="hidden xs:inline">Anterior</span>
+                  <span className="xs:hidden">Ant</span>
                 </button>
                 
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
-                    Página {currentPage} de {totalPages}
+                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                    <span className="hidden xs:inline">Página </span>{currentPage} / {totalPages}
                   </span>
                 </div>
                 
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
-                  className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-700 dark:text-gray-200"
+                  className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-sm sm:text-base bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-700 dark:text-gray-200"
                 >
-                  Próxima
+                  <span className="hidden xs:inline">Próxima</span>
+                  <span className="xs:hidden">Prox</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
