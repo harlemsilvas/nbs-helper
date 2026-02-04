@@ -6,13 +6,13 @@
 
 **Encontre o código certo em segundos. Não em horas.**
 
-[![Status](https://img.shields.io/badge/status-Production-success)](https://nbs-helper.vercel.app)
+[![Status](https://img.shields.io/badge/status-Production-success)](https://nbs-helper-web.vercel.app)
 [![NBS](https://img.shields.io/badge/NBS-2.0-blue)](https://www.gov.br/mdic/pt-br/assuntos/sdic/comercio-e-servicos/nbs-nomenclatura-brasileira-de-servicos)
 [![Códigos](https://img.shields.io/badge/códigos-1237-orange)](#)
 [![PWA](https://img.shields.io/badge/PWA-enabled-purple)](#-pwa-progressive-web-app)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-[🚀 Acessar App](https://nbs-helper.vercel.app) • [📖 Documentação](docs/DOCS_INDEX.md) • [🐛 Reportar Bug](https://github.com/harlemsilvas/nbs-helper/issues)
+[🚀 Acessar App](https://nbs-helper-web.vercel.app) • [📖 Documentação](docs/DOCS_INDEX.md) • [🐛 Reportar Bug](https://github.com/harlemsilvas/nbs-helper/issues)
 
 </div>
 
@@ -66,7 +66,7 @@ Emitir NFS-e exige o código correto da **NBS** (Nomenclatura Brasileira de Serv
 ## 🚀 Acesso Rápido
 
 ### 🌐 Usar Online
-👉 **[nbs-helper.vercel.app](https://nbs-helper.vercel.app)**
+👉 **[nbs-helper-web.vercel.app](https://nbs-helper-web.vercel.app)**
 
 ### 📱 Instalar como App
 
@@ -357,6 +357,6 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 
 **Feito com ❤️ por desenvolvedores, para desenvolvedores e contadores brasileiros**
 
-[🚀 Acessar App](https://nbs-helper.vercel.app) • [📖 Docs](docs/DOCS_INDEX.md) • [🐛 Issues](https://github.com/harlemsilvas/nbs-helper/issues)
+[🚀 Acessar App](https://nbs-helper-web.vercel.app) • [📖 Docs](docs/DOCS_INDEX.md) • [🐛 Issues](https://github.com/harlemsilvas/nbs-helper/issues)
 
 </div>
