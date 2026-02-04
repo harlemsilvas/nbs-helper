@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Share2, X, Copy, CheckCircle2, Link as LinkIcon } from 'lucide-react';
 import { generateShareLink, copyToClipboard } from '../services/share';
 import { trackEvent } from '../services/analytics';
@@ -10,7 +10,7 @@ export default function ShareModal({ favorites, onClose }) {
   const [error, setError] = useState(null);
 
   // Gerar link ao montar o componente
-  useState(() => {
+  useEffect(() => {
     generateLink();
   }, []);
 
