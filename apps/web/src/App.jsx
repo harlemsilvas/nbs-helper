@@ -9,12 +9,15 @@ import SyncModal from "./components/SyncModal";
 import InstallPWA from "./components/InstallPWA";
 import ExportModal from "./components/ExportModal";
 import TemplatesModal from "./components/TemplatesModal";
+import ShareModal from "./components/ShareModal";
+import ReceivedFavoritesModal from "./components/ReceivedFavoritesModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
 import { onAuthChange } from "./services/authService";
 import { syncLocalToCloud, getFavoritesFromCloud, addFavoriteToCloud, removeFavoriteFromCloud, watchFavorites } from "./services/favoritesCloud";
+import { getSharedCodeFromURL, decodeShareLink, clearShareFromURL } from "./services/share";
 import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange, trackKeyboardShortcut, trackHelpModal, trackContact } from "./services/analytics";
 import { ADSENSE_CONFIG } from "./config/adsense";
 import { BookOpen, X, ChevronLeft, ChevronRight, Mail, MessageCircle } from "lucide-react";
@@ -32,6 +35,9 @@ function App() {
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const [showTemplatesModal, setShowTemplatesModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [showReceivedModal, setShowReceivedModal] = useState(false);
+  const [receivedData, setReceivedData] = useState(null);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -83,6 +89,21 @@ function App() {
         const info = getDatasetInfo();
         setDataInfo(info);
         setFavorites(getFavorites());
+        
+        // Verificar se há favoritos compartilhados na URL
+        const sharedCode = getSharedCodeFromURL();
+        if (sharedCode) {
+          try {
+            const sharedData = decodeShareLink(sharedCode);
+            setReceivedData(sharedData);
+            setShowReceivedModal(true);
+            clearShareFromURL(); // Limpar URL após detectar
+          } catch (error) {
+            console.error('Erro ao decodificar favoritos compartilhados:', error);
+            alert('Link de compartilhamento inválido ou expirado.');
+            clearShareFromURL();
+          }
+        }
         
         // Mostrar resultados iniciais
         const initial = await searchNBS("");
@@ -354,6 +375,14 @@ function App() {
             </div>
             <div className="flex items-center gap-2">
               <button
+                onClick={() => setShowShareModal(true)}
+                className="px-3 py-1.5 bg-green-200 dark:bg-green-800 text-green-900 dark:text-green-100 rounded-lg hover:bg-green-300 dark:hover:bg-green-700 transition-colors text-sm font-medium"
+                title="Compartilhar favoritos"
+              >
+                <span className="hidden xs:inline">Compartilhar</span>
+                <span className="xs:hidden">🔗</span>
+              </button>
+              <button
                 onClick={() => setShowExportModal(true)}
                 className="px-3 py-1.5 bg-yellow-200 dark:bg-yellow-800 text-yellow-900 dark:text-yellow-100 rounded-lg hover:bg-yellow-300 dark:hover:bg-yellow-700 transition-colors text-sm font-medium"
                 title="Exportar favoritos (Ctrl+E)"
@@ -511,6 +540,26 @@ function App() {
           onClose={() => setShowTemplatesModal(false)}
           onApplyTemplate={handleApplyTemplate}
           dataInfo={dataInfo}
+        />
+      )}
+
+      {/* Share Modal */}
+      {showShareModal && favorites.length > 0 && (
+        <ShareModal
+          favorites={favorites}
+          onClose={() => setShowShareModal(false)}
+        />
+      )}
+
+      {/* Received Favorites Modal */}
+      {showReceivedModal && receivedData && (
+        <ReceivedFavoritesModal
+          sharedData={receivedData}
+          onImport={handleImportFavorites}
+          onClose={() => {
+            setShowReceivedModal(false);
+            setReceivedData(null);
+          }}
         />
       )}
 
