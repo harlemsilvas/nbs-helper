@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import ResultsList from "./components/ResultsList";
 import CookieConsent from "./components/CookieConsent";
+import ThemeToggle from "./components/ThemeToggle";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
 import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange } from "./services/analytics";
@@ -100,18 +101,21 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
-      <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+      <header className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-800 dark:to-blue-900">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center gap-3">
-            <BookOpen className="w-8 h-8" />
-            <div>
-              <h1 className="text-2xl font-bold">NBS Helper</h1>
-              <p className="text-blue-100 text-sm">
-                Busca rápida de códigos NBS 2.0 para NFS-e
-              </p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <BookOpen className="w-8 h-8 text-white" />
+              <div>
+                <h1 className="text-2xl font-bold text-white">NBS Helper</h1>
+                <p className="text-blue-100 text-sm">
+                  Busca rápida de códigos NBS 2.0 para NFS-e
+                </p>
+              </div>
             </div>
+            <ThemeToggle />
           </div>
           {dataInfo && (
             <div className="mt-3 text-xs text-blue-100">
@@ -129,14 +133,14 @@ function App() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6">
         {showFavorites && (
-          <div className="mb-4 flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-3">
-            <div className="flex items-center gap-2 text-yellow-800">
+          <div className="mb-4 flex items-center justify-between bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg px-4 py-3">
+            <div className="flex items-center gap-2 text-yellow-800 dark:text-yellow-200">
               <span className="font-medium">Exibindo favoritos</span>
               <span className="text-sm">({favorites.length} itens)</span>
             </div>
             <button
               onClick={handleShowFavorites}
-              className="text-yellow-700 hover:text-yellow-900"
+              className="text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100"
             >
               <X className="w-5 h-5" />
             </button>
@@ -152,7 +156,7 @@ function App() {
 
         {!loading && results.length > 0 && (
           <div className="mt-6 space-y-4">
-            <div className="text-center text-sm text-gray-500">
+            <div className="text-center text-sm text-gray-500 dark:text-gray-400">
               Mostrando {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, results.length)} de {results.length} resultado{results.length !== 1 ? "s" : ""}
             </div>
             
@@ -161,14 +165,14 @@ function App() {
                 <button
                   onClick={handlePrevPage}
                   disabled={currentPage === 1}
-                  className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-700 dark:text-gray-200"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   Anterior
                 </button>
                 
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-600 dark:text-gray-300">
                     Página {currentPage} de {totalPages}
                   </span>
                 </div>
@@ -176,7 +180,7 @@ function App() {
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages}
-                  className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-700 dark:text-gray-200"
                 >
                   Próxima
                   <ChevronRight className="w-4 h-4" />
@@ -188,21 +192,21 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-12 py-6 bg-white border-t">
-        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-600">
+      <footer className="mt-12 py-6 bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-600 dark:text-gray-300">
           <p>
             ⚠️ <strong>Ferramenta de apoio.</strong> Confirme com seu contador e a
             legislação do seu município.
           </p>
-          <p className="mt-2 text-xs text-gray-500">
+          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
             Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de Serviços) • gov.br
           </p>
-          <div className="mt-3 flex items-center justify-center gap-4 text-xs text-gray-500">
+          <div className="mt-3 flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
             <a 
               href="https://github.com/harlemsilvas/nbs-helper/blob/main/docs/POLITICA_PRIVACIDADE.md" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="hover:text-blue-600 transition-colors"
+              className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               Política de Privacidade
             </a>
@@ -211,7 +215,7 @@ function App() {
               href="https://github.com/harlemsilvas/nbs-helper" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="hover:text-blue-600 transition-colors"
+              className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               GitHub
             </a>

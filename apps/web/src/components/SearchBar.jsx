@@ -65,7 +65,7 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
   };
 
   return (
-    <div className="bg-white shadow-sm border-b sticky top-0 z-10">
+    <div className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700 sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center gap-4">
           <form onSubmit={handleSubmit} className="flex-1 relative" ref={searchRef}>
@@ -77,7 +77,7 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
                 onChange={handleInputChange}
                 onFocus={() => setShowSuggestions(true)}
                 placeholder="Buscar serviço (ex: desenvolvimento de software, consultoria TI...)"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 autoComplete="off"
               />
               {query && (
@@ -96,16 +96,16 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
 
             {/* Suggestions Dropdown */}
             {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto z-20">
-                <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100 bg-gray-50">
-                  <span className="text-xs font-medium text-gray-600">
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg max-h-64 overflow-y-auto z-20">
+                <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+                  <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
                     {query ? 'Sugestões' : 'Buscas recentes'}
                   </span>
                   {!query && (
                     <button
                       type="button"
                       onClick={handleClearHistory}
-                      className="text-xs text-red-600 hover:text-red-700 flex items-center gap-1"
+                      className="text-xs text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 flex items-center gap-1"
                       title="Limpar histórico"
                     >
                       <Trash2 className="w-3 h-3" />
@@ -119,18 +119,18 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
                       <button
                         type="button"
                         onClick={() => handleSuggestionClick(suggestion)}
-                        className="w-full px-3 py-2 text-left hover:bg-blue-50 flex items-center justify-between group transition-colors"
+                        className="w-full px-3 py-2 text-left hover:bg-blue-50 dark:hover:bg-blue-900/20 flex items-center justify-between group transition-colors"
                       >
                         <div className="flex items-center gap-2 flex-1 min-w-0">
-                          <Clock className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                          <span className="text-sm text-gray-700 truncate">{suggestion}</span>
+                          <Clock className="w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />
+                          <span className="text-sm text-gray-700 dark:text-gray-200 truncate">{suggestion}</span>
                         </div>
                         <button
                           onClick={(e) => handleRemoveSuggestion(e, suggestion)}
-                          className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-200 rounded transition-opacity"
+                          className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-opacity"
                           title="Remover"
                         >
-                          <X className="w-3 h-3 text-gray-500" />
+                          <X className="w-3 h-3 text-gray-500 dark:text-gray-400" />
                         </button>
                       </button>
                     </li>
@@ -141,7 +141,7 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
           </form>
           <button
             onClick={onShowFavorites}
-            className="flex items-center gap-2 px-4 py-3 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100 transition-colors border border-yellow-200"
+            className="flex items-center gap-2 px-4 py-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors border border-yellow-200 dark:border-yellow-800"
           >
             <Star className="w-5 h-5" />
             <span className="hidden sm:inline">Favoritos</span>
