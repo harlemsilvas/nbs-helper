@@ -203,7 +203,7 @@ function App() {
           </p>
           <div className="mt-3 flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
             <a 
-              href="https://github.com/harlemsilvas/nbs-helper/blob/main/docs/POLITICA_PRIVACIDADE.md" 
+              href="/politica-privacidade.html" 
               target="_blank" 
               rel="noopener noreferrer"
               className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"

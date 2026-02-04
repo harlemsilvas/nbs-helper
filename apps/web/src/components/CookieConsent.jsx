@@ -53,6 +53,7 @@ export default function CookieConsent() {
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
               Usamos cookies para melhorar sua experiência e entender como você usa o NBS Helper. 
               Coletamos dados anônimos de navegação através do Google Analytics para aprimorar nosso serviço.
+              <a href="/politica-privacidade.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-1">Saiba mais</a>.
             </p>
 
             {showDetails && (
