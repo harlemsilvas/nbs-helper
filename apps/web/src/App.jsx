@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import ResultsList from "./components/ResultsList";
+import CookieConsent from "./components/CookieConsent";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
 import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange } from "./services/analytics";
@@ -196,8 +197,30 @@ function App() {
           <p className="mt-2 text-xs text-gray-500">
             Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de Serviços) • gov.br
           </p>
+          <div className="mt-3 flex items-center justify-center gap-4 text-xs text-gray-500">
+            <a 
+              href="https://github.com/harlemsilvas/nbs-helper/blob/main/docs/POLITICA_PRIVACIDADE.md" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Política de Privacidade
+            </a>
+            <span>•</span>
+            <a 
+              href="https://github.com/harlemsilvas/nbs-helper" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors"
+            >
+              GitHub
+            </a>
+          </div>
         </div>
       </footer>
+
+      {/* Cookie Consent Banner */}
+      <CookieConsent />
     </div>
   );
 }
