@@ -63,3 +63,20 @@ export const trackPageChange = (page) => {
     page_number: page,
   });
 };
+
+/**
+ * Rastreia uso de sugestão do histórico
+ * @param {string} query - Termo selecionado do histórico
+ */
+export const trackHistorySuggestion = (query) => {
+  trackEvent('history_suggestion', {
+    search_term: query,
+  });
+};
+
+/**
+ * Rastreia limpeza do histórico
+ */
+export const trackHistoryClear = () => {
+  trackEvent('history_clear');
+};
