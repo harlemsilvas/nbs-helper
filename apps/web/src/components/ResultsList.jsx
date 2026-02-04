@@ -1,4 +1,6 @@
 import ResultItem from "./ResultItem";
+import { InFeedAd } from "./AdBanner";
+import { ADSENSE_CONFIG } from "../config/adsense";
 import { Loader2, SearchX } from "lucide-react";
 
 export default function ResultsList({ results, loading, favorites, onToggleFavorite }) {
@@ -23,13 +25,21 @@ export default function ResultsList({ results, loading, favorites, onToggleFavor
 
   return (
     <div className="space-y-3">
-      {results.map((item) => (
-        <ResultItem
-          key={item.code}
-          item={item}
-          isFavorite={favorites.some((f) => f.code === item.code)}
-          onToggleFavorite={onToggleFavorite}
-        />
+      {results.map((item, index) => (
+        <div key={item.code}>
+          <ResultItem
+            item={item}
+            isFavorite={favorites.some((f) => f.code === item.code)}
+            onToggleFavorite={onToggleFavorite}
+          />
+          
+          {/* Inserir anúncio in-feed a cada N resultados */}
+          {ADSENSE_CONFIG.settings.showInFeedAds && 
+           (index + 1) % ADSENSE_CONFIG.settings.inFeedFrequency === 0 && 
+           index !== results.length - 1 && (
+            <InFeedAd className="my-4" />
+          )}
+        </div>
       ))}
     </div>
   );

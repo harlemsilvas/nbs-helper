@@ -19,7 +19,10 @@ export default function CookieConsent() {
   const enableAnalytics = () => {
     if (window.gtag) {
       window.gtag('consent', 'update', {
-        analytics_storage: 'granted'
+        analytics_storage: 'granted',
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
       });
     }
   };
@@ -52,16 +55,17 @@ export default function CookieConsent() {
             
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
               Usamos cookies para melhorar sua experiência e entender como você usa o NBS Helper. 
-              Coletamos dados anônimos de navegação através do Google Analytics para aprimorar nosso serviço.
+              Coletamos dados anônimos de navegação e exibimos anúncios não-intrusivos para manter o serviço gratuito.
               <a href="/politica-privacidade.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-1">Saiba mais</a>.
             </p>
 
             {showDetails && (
               <div className="mb-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg text-sm text-gray-700 dark:text-gray-200 space-y-2">
-                <p className="font-medium">Cookies utilizados:</p>
+                <p className="font-medium">Cookies e tecnologias utilizadas:</p>
                 <ul className="list-disc list-inside space-y-1 ml-2">
-                  <li><strong>Essenciais:</strong> Favoritos locais (LocalStorage)</li>
+                  <li><strong>Essenciais:</strong> Favoritos locais, tema, histórico (LocalStorage)</li>
                   <li><strong>Analytics:</strong> Google Analytics (GA4) - dados anônimos de uso</li>
+                  <li><strong>Publicidade:</strong> Google AdSense - anúncios contextuais</li>
                 </ul>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
                   ℹ️ Não coletamos dados pessoais identificáveis. Você pode revogar seu consentimento a qualquer momento limpando os dados do navegador.

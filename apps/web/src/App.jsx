@@ -4,10 +4,12 @@ import ResultsList from "./components/ResultsList";
 import CookieConsent from "./components/CookieConsent";
 import ThemeToggle from "./components/ThemeToggle";
 import KeyboardShortcutsHelp from "./components/KeyboardShortcutsHelp";
+import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
 import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange, trackKeyboardShortcut, trackHelpModal } from "./services/analytics";
+import { ADSENSE_CONFIG } from "./config/adsense";
 import { BookOpen, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 function App() {
@@ -171,6 +173,11 @@ function App() {
         onShowFavorites={handleShowFavorites} 
       />
 
+      {/* Header Ad Banner */}
+      {ADSENSE_CONFIG.settings.showHeaderBanner && (
+        <HorizontalAdBanner className="bg-white dark:bg-gray-800 border-b dark:border-gray-700" />
+      )}
+
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6">
         {showFavorites && (
@@ -231,6 +238,11 @@ function App() {
           </div>
         )}
       </main>
+
+      {/* Footer Ad Banner */}
+      {ADSENSE_CONFIG.settings.showFooterBanner && (
+        <HorizontalAdBanner className="bg-white dark:bg-gray-800 border-t dark:border-gray-700" />
+      )}
 
       {/* Footer */}
       <footer className="mt-12 py-6 bg-white dark:bg-gray-800 border-t dark:border-gray-700">
