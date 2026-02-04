@@ -4,10 +4,14 @@ import ResultsList from "./components/ResultsList";
 import CookieConsent from "./components/CookieConsent";
 import ThemeToggle from "./components/ThemeToggle";
 import KeyboardShortcutsHelp from "./components/KeyboardShortcutsHelp";
+import LoginButton from "./components/LoginButton";
+import SyncModal from "./components/SyncModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
+import { onAuthChange } from "./services/authService";
+import { syncLocalToCloud, getFavoritesFromCloud, addFavoriteToCloud, removeFavoriteFromCloud, watchFavorites } from "./services/favoritesCloud";
 import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange, trackKeyboardShortcut, trackHelpModal, trackContact } from "./services/analytics";
 import { ADSENSE_CONFIG } from "./config/adsense";
 import { BookOpen, X, ChevronLeft, ChevronRight, Mail, MessageCircle } from "lucide-react";
@@ -21,7 +25,49 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(20);
   const [showHelp, setShowHelp] = useState(false);
+  const [user, setUser] = useState(null);
+  const [showSyncModal, setShowSyncModal] = useState(false);
   const searchInputRef = useRef(null);
+
+  // Observar mudanças de autenticação
+  useEffect(() => {
+    const unsubscribe = onAuthChange(async (currentUser) => {
+      setUser(currentUser);
+      
+      if (currentUser) {
+        // Usuário logou
+        console.log('Usuário logado:', currentUser.displayName || currentUser.email);
+        
+        // Buscar favoritos da nuvem
+        try {
+          const cloudFavorites = await getFavoritesFromCloud(currentUser.uid);
+          
+          // Se há favoritos locais mas nenhum na nuvem, mostrar modal de sync
+          const localFavorites = getFavorites();
+          if (localFavorites.length > 0 && cloudFavorites.length === 0) {
+            setShowSyncModal(true);
+          } else {
+            // Usar favoritos da nuvem
+            setFavorites(cloudFavorites);
+          }
+          
+          // Observar mudanças em tempo real
+          const unsubscribeFavorites = watchFavorites(currentUser.uid, (updatedFavorites) => {
+            setFavorites(updatedFavorites);
+          });
+          
+          return () => unsubscribeFavorites();
+        } catch (error) {
+          console.error('Erro ao carregar favoritos da nuvem:', error);
+        }
+      } else {
+        // Usuário deslogou - voltar para favoritos locais
+        setFavorites(getFavorites());
+      }
+    });
+    
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     // Carregar índice e favoritos na inicialização
@@ -60,16 +106,50 @@ function App() {
     }
   };
 
-  const handleToggleFavorite = (item) => {
+  const handleToggleFavorite = async (item) => {
     const isFav = favorites.some((f) => f.code === item.code);
+    
     if (isFav) {
+      // Remover favorito
       const updated = removeFavorite(item.code);
       setFavorites(updated);
       trackFavorite(item.code, false);
+      
+      // Se usuário logado, remover da nuvem também
+      if (user) {
+        try {
+          await removeFavoriteFromCloud(user.uid, item.code);
+        } catch (error) {
+          console.error('Erro ao remover favorito da nuvem:', error);
+        }
+      }
     } else {
+      // Adicionar favorito
       const updated = addFavorite(item);
       setFavorites(updated);
       trackFavorite(item.code, true);
+      
+      // Se usuário logado, adicionar na nuvem também
+      if (user) {
+        try {
+          await addFavoriteToCloud(user.uid, item);
+        } catch (error) {
+          console.error('Erro ao adicionar favorito na nuvem:', error);
+        }
+      }
+    }
+  };
+
+  const handleSync = async () => {
+    if (!user) return;
+    
+    try {
+      await syncLocalToCloud(user.uid);
+      const cloudFavorites = await getFavoritesFromCloud(user.uid);
+      setFavorites(cloudFavorites);
+    } catch (error) {
+      console.error('Erro ao sincronizar:', error);
+      alert('Erro ao sincronizar favoritos. Tente novamente.');
     }
   };
 
@@ -145,6 +225,7 @@ function App() {
               </div>
             </div>
             <div className="flex items-center gap-1.5 sm:gap-3">
+              <LoginButton user={user} onLoginSuccess={() => console.log('Login realizado!')} />
               <button
                 onClick={() => setShowHelp(true)}
                 className="text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
@@ -311,6 +392,16 @@ function App() {
 
       {/* Keyboard Shortcuts Help */}
       {showHelp && <KeyboardShortcutsHelp onClose={() => setShowHelp(false)} />}
+
+      {/* Sync Modal */}
+      {showSyncModal && (
+        <SyncModal
+          onClose={() => setShowSyncModal(false)}
+          localCount={getFavorites().length}
+          cloudCount={0}
+          onSync={handleSync}
+        />
+      )}
     </div>
   );
 }
