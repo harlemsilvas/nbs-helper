@@ -3,14 +3,13 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 // Configuração do Firebase
-// IMPORTANTE: Substituir pelos valores reais do seu projeto Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  apiKey: "AIzaSyChNdq0R6b8uqAA1sKuS6kj29WC3FYATiw",
   authDomain: "nbs-helper.firebaseapp.com",
   projectId: "nbs-helper",
   storageBucket: "nbs-helper.firebasestorage.app",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef1234567890abcdef"
+  messagingSenderId: "822777010807",
+  appId: "1:822777010807:web:b762fa0e67680f05de0472"
 };
 
 // Inicializar Firebase
