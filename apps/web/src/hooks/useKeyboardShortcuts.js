@@ -39,6 +39,15 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
         return;
       }
 
+      // Ctrl+E ou Cmd+E - exportar
+      if ((event.ctrlKey || event.metaKey) && event.key === 'e') {
+        event.preventDefault();
+        if (shortcuts.ctrlE) {
+          shortcuts.ctrlE(event);
+        }
+        return;
+      }
+
       // ArrowDown - navegação para baixo
       if (event.key === 'ArrowDown' && !isTyping) {
         if (shortcuts.arrowDown) {

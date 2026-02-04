@@ -5,6 +5,7 @@ export default function KeyboardShortcutsHelp({ onClose }) {
     { keys: ["Ctrl", "K"], description: "Focar no campo de busca" },
     { keys: ["Esc"], description: "Limpar busca / Fechar dropdown" },
     { keys: ["Ctrl", "B"], description: "Abrir/Fechar favoritos" },
+    { keys: ["Ctrl", "E"], description: "Exportar favoritos" },
     { keys: ["↑", "↓"], description: "Navegar sugestões de busca" },
     { keys: ["Enter"], description: "Selecionar sugestão" },
     { keys: ["?"], description: "Mostrar esta ajuda" },

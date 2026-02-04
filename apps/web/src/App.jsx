@@ -7,6 +7,7 @@ import KeyboardShortcutsHelp from "./components/KeyboardShortcutsHelp";
 import LoginButton from "./components/LoginButton";
 import SyncModal from "./components/SyncModal";
 import InstallPWA from "./components/InstallPWA";
+import ExportModal from "./components/ExportModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -28,6 +29,7 @@ function App() {
   const [showHelp, setShowHelp] = useState(false);
   const [user, setUser] = useState(null);
   const [showSyncModal, setShowSyncModal] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -165,6 +167,36 @@ function App() {
     }
   };
 
+  const handleImportFavorites = async (importedFavorites) => {
+    // Mesclar favoritos importados com os existentes (evitar duplicatas)
+    const existingCodes = new Set(favorites.map(f => f.code));
+    const newFavorites = importedFavorites.filter(f => !existingCodes.has(f.code));
+    
+    if (newFavorites.length === 0) {
+      alert('Todos os favoritos já estão salvos.');
+      return;
+    }
+
+    const updated = [...favorites, ...newFavorites];
+    
+    // Salvar localmente
+    localStorage.setItem('nbs-favorites', JSON.stringify(updated));
+    setFavorites(updated);
+
+    // Se logado, salvar na nuvem também
+    if (user) {
+      for (const fav of newFavorites) {
+        try {
+          await addFavoriteToCloud(user.uid, fav);
+        } catch (error) {
+          console.error('Erro ao adicionar favorito na nuvem:', fav.code, error);
+        }
+      }
+    }
+
+    alert(`${newFavorites.length} ${newFavorites.length === 1 ? 'favorito importado' : 'favoritos importados'} com sucesso!`);
+  };
+
   // Cálculos de paginação
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -196,6 +228,12 @@ function App() {
     ctrlB: () => {
       handleShowFavorites();
       trackKeyboardShortcut('ctrl_b', 'toggle_favorites');
+    },
+    ctrlE: () => {
+      if (favorites.length > 0) {
+        setShowExportModal(true);
+        trackKeyboardShortcut('ctrl_e', 'open_export');
+      }
     },
     escape: () => {
       // ESC é tratado dentro do SearchBar
@@ -270,12 +308,22 @@ function App() {
               <span className="font-medium">Exibindo favoritos</span>
               <span className="text-sm">({favorites.length} itens)</span>
             </div>
-            <button
-              onClick={handleShowFavorites}
-              className="text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowExportModal(true)}
+                className="px-3 py-1.5 bg-yellow-200 dark:bg-yellow-800 text-yellow-900 dark:text-yellow-100 rounded-lg hover:bg-yellow-300 dark:hover:bg-yellow-700 transition-colors text-sm font-medium"
+                title="Exportar favoritos (Ctrl+E)"
+              >
+                <span className="hidden xs:inline">Exportar</span>
+                <span className="xs:hidden">⬇</span>
+              </button>
+              <button
+                onClick={handleShowFavorites}
+                className="text-yellow-700 dark:text-yellow-300 hover:text-yellow-900 dark:hover:text-yellow-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         )}
 
@@ -401,6 +449,15 @@ function App() {
           localCount={getFavorites().length}
           cloudCount={0}
           onSync={handleSync}
+        />
+      )}
+
+      {/* Export Modal */}
+      {showExportModal && (
+        <ExportModal
+          favorites={favorites}
+          onClose={() => setShowExportModal(false)}
+          onImport={handleImportFavorites}
         />
       )}
 
