@@ -6,6 +6,7 @@ export default function KeyboardShortcutsHelp({ onClose }) {
     { keys: ["Esc"], description: "Limpar busca / Fechar dropdown" },
     { keys: ["Ctrl", "B"], description: "Abrir/Fechar favoritos" },
     { keys: ["Ctrl", "E"], description: "Exportar favoritos" },
+    { keys: ["Ctrl", "T"], description: "Abrir templates por perfil" },
     { keys: ["↑", "↓"], description: "Navegar sugestões de busca" },
     { keys: ["Enter"], description: "Selecionar sugestão" },
     { keys: ["?"], description: "Mostrar esta ajuda" },

@@ -39,5 +39,6 @@ export function getDatasetInfo() {
     version: dataset.version,
     totalItems: dataset.totalItems,
     generatedAt: dataset.generatedAt,
+    items: dataset.items, // Incluir items para acesso direto
   };
 }

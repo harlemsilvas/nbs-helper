@@ -8,6 +8,7 @@ import LoginButton from "./components/LoginButton";
 import SyncModal from "./components/SyncModal";
 import InstallPWA from "./components/InstallPWA";
 import ExportModal from "./components/ExportModal";
+import TemplatesModal from "./components/TemplatesModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -30,6 +31,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showTemplatesModal, setShowTemplatesModal] = useState(false);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -197,6 +199,36 @@ function App() {
     alert(`${newFavorites.length} ${newFavorites.length === 1 ? 'favorito importado' : 'favoritos importados'} com sucesso!`);
   };
 
+  const handleApplyTemplate = async (templateCodes) => {
+    // Mesclar códigos do template com favoritos existentes (evitar duplicatas)
+    const existingCodes = new Set(favorites.map(f => f.code));
+    const newFavorites = templateCodes.filter(f => !existingCodes.has(f.code));
+    
+    if (newFavorites.length === 0) {
+      alert('Todos os códigos deste template já estão nos seus favoritos.');
+      return;
+    }
+
+    const updated = [...favorites, ...newFavorites];
+    
+    // Salvar localmente
+    localStorage.setItem('nbs-favorites', JSON.stringify(updated));
+    setFavorites(updated);
+
+    // Se logado, salvar na nuvem também
+    if (user) {
+      for (const fav of newFavorites) {
+        try {
+          await addFavoriteToCloud(user.uid, fav);
+        } catch (error) {
+          console.error('Erro ao adicionar favorito na nuvem:', fav.code, error);
+        }
+      }
+    }
+
+    alert(`✨ ${newFavorites.length} ${newFavorites.length === 1 ? 'código adicionado' : 'códigos adicionados'} aos favoritos!`);
+  };
+
   // Cálculos de paginação
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -235,6 +267,10 @@ function App() {
         trackKeyboardShortcut('ctrl_e', 'open_export');
       }
     },
+    ctrlT: () => {
+      setShowTemplatesModal(true);
+      trackKeyboardShortcut('ctrl_t', 'open_templates');
+    },
     escape: () => {
       // ESC é tratado dentro do SearchBar
       if (showHelp) {
@@ -265,6 +301,14 @@ function App() {
             </div>
             <div className="flex items-center gap-1.5 sm:gap-3">
               <LoginButton user={user} onLoginSuccess={() => console.log('Login realizado!')} />
+              <button
+                onClick={() => setShowTemplatesModal(true)}
+                className="text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
+                title="Templates por perfil (Ctrl+T)"
+              >
+                <span className="hidden sm:inline">Templates</span>
+                <span className="sm:hidden">✨</span>
+              </button>
               <button
                 onClick={() => setShowHelp(true)}
                 className="text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
@@ -458,6 +502,15 @@ function App() {
           favorites={favorites}
           onClose={() => setShowExportModal(false)}
           onImport={handleImportFavorites}
+        />
+      )}
+
+      {/* Templates Modal */}
+      {showTemplatesModal && (
+        <TemplatesModal
+          onClose={() => setShowTemplatesModal(false)}
+          onApplyTemplate={handleApplyTemplate}
+          dataInfo={dataInfo}
         />
       )}
 

@@ -48,6 +48,15 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
         return;
       }
 
+      // Ctrl+T ou Cmd+T - templates
+      if ((event.ctrlKey || event.metaKey) && event.key === 't') {
+        event.preventDefault();
+        if (shortcuts.ctrlT) {
+          shortcuts.ctrlT(event);
+        }
+        return;
+      }
+
       // ArrowDown - navegação para baixo
       if (event.key === 'ArrowDown' && !isTyping) {
         if (shortcuts.arrowDown) {

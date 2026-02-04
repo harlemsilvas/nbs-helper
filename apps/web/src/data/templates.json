@@ -1,0 +1,138 @@
+{
+  "version": "1.0",
+  "templates": [
+    {
+      "id": "contador",
+      "name": "Contador / Contabilidade",
+      "icon": "Calculator",
+      "description": "Códigos comuns para escritórios de contabilidade e serviços fiscais",
+      "color": "blue",
+      "codes": [
+        "1.1302.11.00",
+        "1.1302.21.00",
+        "1.1302.22.00",
+        "1.1302.23.00",
+        "1.1303.10.00",
+        "1.1303.20.00",
+        "1.1302.19.00",
+        "1.1304.00.00"
+      ]
+    },
+    {
+      "id": "ti",
+      "name": "Tecnologia da Informação",
+      "icon": "Code",
+      "description": "Desenvolvimento de software, suporte técnico e consultoria em TI",
+      "color": "purple",
+      "codes": [
+        "1.1501.10.00",
+        "1.1501.20.00",
+        "1.1501.30.00",
+        "1.1502.10.00",
+        "1.1502.20.00",
+        "1.1502.30.00",
+        "1.1502.40.00",
+        "1.1502.50.00"
+      ]
+    },
+    {
+      "id": "consultoria",
+      "name": "Consultoria Empresarial",
+      "icon": "Briefcase",
+      "description": "Consultoria em gestão, planejamento estratégico e assessoria",
+      "color": "green",
+      "codes": [
+        "1.1401.11.00",
+        "1.1401.12.00",
+        "1.1401.13.00",
+        "1.1401.14.00",
+        "1.1401.15.00",
+        "1.1401.17.00",
+        "1.1401.18.00",
+        "1.1401.19.00"
+      ]
+    },
+    {
+      "id": "construcao",
+      "name": "Construção Civil",
+      "icon": "HardHat",
+      "description": "Serviços de construção, reformas e engenharia civil",
+      "color": "orange",
+      "codes": [
+        "1.0101.11.00",
+        "1.0101.12.00",
+        "1.0101.21.00",
+        "1.0101.22.00",
+        "1.0105.21.00",
+        "1.0106.11.00",
+        "1.0107.30.00",
+        "1.0107.40.00"
+      ]
+    },
+    {
+      "id": "saude",
+      "name": "Saúde e Bem-estar",
+      "icon": "Heart",
+      "description": "Serviços médicos, odontológicos e de saúde",
+      "color": "red",
+      "codes": [
+        "1.2301.21.00",
+        "1.2301.22.00",
+        "1.2301.23.00",
+        "1.2301.91.00",
+        "1.2301.92.00",
+        "1.2301.93.00",
+        "1.2301.94.00",
+        "1.2301.96.00"
+      ]
+    },
+    {
+      "id": "juridico",
+      "name": "Jurídico e Advocacia",
+      "icon": "Scale",
+      "description": "Serviços jurídicos, advocacia e consultoria legal",
+      "color": "indigo",
+      "codes": [
+        "1.1301.10.00",
+        "1.1301.20.00",
+        "1.1301.30.00",
+        "1.1301.40.00",
+        "1.1301.90.00"
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing e Publicidade",
+      "icon": "Megaphone",
+      "description": "Publicidade, marketing digital e comunicação",
+      "color": "pink",
+      "codes": [
+        "1.1406.11.00",
+        "1.1406.12.00",
+        "1.1406.20.00",
+        "1.1406.31.00",
+        "1.1406.32.00",
+        "1.1406.33.00",
+        "1.1401.14.00",
+        "1.1406.19.00"
+      ]
+    },
+    {
+      "id": "educacao",
+      "name": "Educação e Treinamento",
+      "icon": "GraduationCap",
+      "description": "Serviços educacionais, cursos e capacitação",
+      "color": "yellow",
+      "codes": [
+        "1.2201.20.00",
+        "1.2201.30.00",
+        "1.2204.10.00",
+        "1.2204.20.00",
+        "1.2205.11.00",
+        "1.2205.13.00",
+        "1.2205.14.00",
+        "1.2205.19.00"
+      ]
+    }
+  ]
+}
