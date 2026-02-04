@@ -8,9 +8,9 @@ import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
-import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange, trackKeyboardShortcut, trackHelpModal } from "./services/analytics";
+import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange, trackKeyboardShortcut, trackHelpModal, trackContact } from "./services/analytics";
 import { ADSENSE_CONFIG } from "./config/adsense";
-import { BookOpen, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { BookOpen, X, ChevronLeft, ChevronRight, Mail, MessageCircle } from "lucide-react";
 
 function App() {
   const [results, setResults] = useState([]);
@@ -250,32 +250,58 @@ function App() {
 
       {/* Footer */}
       <footer className="mt-12 py-6 bg-white dark:bg-gray-800 border-t dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 text-center text-sm text-gray-600 dark:text-gray-300">
-          <p>
-            ⚠️ <strong>Ferramenta de apoio.</strong> Confirme com seu contador e a
-            legislação do seu município.
-          </p>
-          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-            Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de Serviços) • gov.br
-          </p>
-          <div className="mt-3 flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-            <a 
-              href="/politica-privacidade.html" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              Política de Privacidade
-            </a>
-            {/* <span>•</span>
-            <a 
-              href="https://github.com/harlemsilvas/nbs-helper" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              GitHub
-            </a> */}
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center text-sm text-gray-600 dark:text-gray-300">
+            <p>
+              ⚠️ <strong>Ferramenta de apoio.</strong> Confirme com seu contador e a
+              legislação do seu município.
+            </p>
+            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+              Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de Serviços) • gov.br
+            </p>
+            
+            {/* Contact Information */}
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
+                📞 Entre em contato
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                <a
+                  href="mailto:harlemclaumannsilva@gmail.com"
+                  onClick={() => trackContact('email')}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors text-sm"
+                  title="Enviar email"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span className="hidden xs:inline">harlemclaumannsilva@gmail.com</span>
+                  <span className="xs:hidden">Email</span>
+                </a>
+                
+                <a
+                  href="https://wa.me/5511967745351?text=Olá! Vim através do NBS Helper e gostaria de saber mais."
+                  onClick={() => trackContact('whatsapp')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors text-sm"
+                  title="Abrir WhatsApp"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="hidden xs:inline">(11) 96774-5351</span>
+                  <span className="xs:hidden">WhatsApp</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+              <a 
+                href="/politica-privacidade.html" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                Política de Privacidade
+              </a>
+            </div>
           </div>
         </div>
       </footer>

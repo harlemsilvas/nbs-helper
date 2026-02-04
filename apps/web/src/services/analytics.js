@@ -112,3 +112,13 @@ export function trackHelpModal(action) {
     action: action
   });
 }
+
+/**
+ * Rastreia clique em contato (email/whatsapp)
+ * @param {string} type - 'email' ou 'whatsapp'
+ */
+export function trackContact(type) {
+  trackEvent('contact_click', {
+    contact_type: type
+  });
+}
