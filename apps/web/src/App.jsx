@@ -6,6 +6,7 @@ import ThemeToggle from "./components/ThemeToggle";
 import KeyboardShortcutsHelp from "./components/KeyboardShortcutsHelp";
 import LoginButton from "./components/LoginButton";
 import SyncModal from "./components/SyncModal";
+import InstallPWA from "./components/InstallPWA";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -402,6 +403,9 @@ function App() {
           onSync={handleSync}
         />
       )}
+
+      {/* PWA Install Prompt */}
+      <InstallPWA />
     </div>
   );
 }

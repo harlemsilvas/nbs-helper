@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Criar Ícones PWA</title></head>
+<body style="margin:0;padding:20px;font-family:Arial">
+<h2>Gerador de Ícones NBS Helper</h2>
+<button onclick="generate192()">Baixar icon-192.png</button>
+<button onclick="generate512()">Baixar icon-512.png</button>
+<canvas id="c" style="display:none"></canvas>
+<script>
+function generate192(){create(192)}
+function generate512(){create(512)}
+function create(s){
+const c=document.getElementById('c');
+c.width=c.height=s;
+const x=c.getContext('2d');
+x.fillStyle='#2563eb';
+x.fillRect(0,0,s,s);
+x.fillStyle='#fff';
+x.font='bold '+(s*0.4)+'px Arial';
+x.textAlign='center';
+x.textBaseline='middle';
+x.fillText('NBS',s/2,s/2);
+c.toBlob(b=>{
+const a=document.createElement('a');
+a.href=URL.createObjectURL(b);
+a.download='icon-'+s+'.png';
+a.click();
+});
+}
+</script>
+</body>
+</html>
