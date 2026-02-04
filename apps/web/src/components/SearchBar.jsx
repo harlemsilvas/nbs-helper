@@ -1,13 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import { Search, Star, Clock, X, Trash2 } from "lucide-react";
 import { getSearchHistory, addToHistory, removeFromHistory, clearHistory, filterHistory } from "../services/searchHistory";
-import { trackHistorySuggestion, trackHistoryClear } from "../services/analytics";
+import { trackHistorySuggestion, trackHistoryClear, trackKeyboardShortcut } from "../services/analytics";
 
-export default function SearchBar({ onSearch, onShowFavorites }) {
+const SearchBar = forwardRef(({ onSearch, onShowFavorites }, ref) => {
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const searchRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     // Atualizar sugestões quando query muda
@@ -16,6 +18,7 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
     } else {
       setSuggestions(getSearchHistory());
     }
+    setSelectedIndex(-1); // Reset selection
   }, [query]);
 
   useEffect(() => {
@@ -64,6 +67,45 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
     trackHistoryClear();
   };
 
+  const handleKeyDown = (e) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedIndex(prev => 
+          prev < suggestions.length - 1 ? prev + 1 : prev
+        );
+        trackKeyboardShortcut('arrow_down', 'navigate_suggestions');
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedIndex(prev => prev > 0 ? prev - 1 : -1);
+        trackKeyboardShortcut('arrow_up', 'navigate_suggestions');
+        break;
+      case 'Enter':
+        if (selectedIndex >= 0) {
+          e.preventDefault();
+          handleSuggestionClick(suggestions[selectedIndex]);
+          trackKeyboardShortcut('enter', 'select_suggestion');
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        setSelectedIndex(-1);
+        trackKeyboardShortcut('escape', 'close_suggestions');
+        break;
+    }
+  };
+
+  // Expor função para focar input (será chamada pelo atalho global)
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current?.focus();
+      setShowSuggestions(true);
+    }
+  }));
+
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700 sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 py-4">
@@ -72,10 +114,12 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
+                ref={inputRef}
                 type="text"
                 value={query}
                 onChange={handleInputChange}
                 onFocus={() => setShowSuggestions(true)}
+                onKeyDown={handleKeyDown}
                 placeholder="Buscar serviço (ex: desenvolvimento de software, consultoria TI...)"
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                 autoComplete="off"
@@ -119,7 +163,11 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
                       <button
                         type="button"
                         onClick={() => handleSuggestionClick(suggestion)}
-                        className="w-full px-3 py-2 text-left hover:bg-blue-50 dark:hover:bg-blue-900/20 flex items-center justify-between group transition-colors"
+                        className={`w-full px-3 py-2 text-left flex items-center justify-between group transition-colors ${
+                          selectedIndex === index 
+                            ? 'bg-blue-100 dark:bg-blue-900/40' 
+                            : 'hover:bg-blue-50 dark:hover:bg-blue-900/20'
+                        }`}
                       >
                         <div className="flex items-center gap-2 flex-1 min-w-0">
                           <Clock className="w-4 h-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />
@@ -150,4 +198,8 @@ export default function SearchBar({ onSearch, onShowFavorites }) {
       </div>
     </div>
   );
-}
+});
+
+SearchBar.displayName = 'SearchBar';
+
+export default SearchBar;

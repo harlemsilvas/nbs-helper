@@ -80,3 +80,35 @@ export const trackHistorySuggestion = (query) => {
 export const trackHistoryClear = () => {
   trackEvent('history_clear');
 };
+
+/**
+ * Rastreia mudança de tema
+ * @param {string} theme - Tema selecionado ('light' ou 'dark')
+ */
+export function trackThemeToggle(theme) {
+  trackEvent('theme_toggle', {
+    theme: theme
+  });
+}
+
+/**
+ * Rastreia uso de atalho de teclado
+ * @param {string} shortcut - Tecla/combinação usada
+ * @param {string} action - Ação executada
+ */
+export function trackKeyboardShortcut(shortcut, action) {
+  trackEvent('keyboard_shortcut', {
+    shortcut: shortcut,
+    action: action
+  });
+}
+
+/**
+ * Rastreia abertura/fechamento do modal de ajuda
+ * @param {string} action - 'open' ou 'close'
+ */
+export function trackHelpModal(action) {
+  trackEvent('help_modal', {
+    action: action
+  });
+}

@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SearchBar from "./components/SearchBar";
 import ResultsList from "./components/ResultsList";
 import CookieConsent from "./components/CookieConsent";
 import ThemeToggle from "./components/ThemeToggle";
+import KeyboardShortcutsHelp from "./components/KeyboardShortcutsHelp";
+import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
 import { getFavorites, addFavorite, removeFavorite } from "./services/favorites";
-import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange } from "./services/analytics";
+import { trackSearch, trackFavorite, trackViewFavorites, trackPageChange, trackKeyboardShortcut, trackHelpModal } from "./services/analytics";
 import { BookOpen, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
   const [dataInfo, setDataInfo] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(20);
+  const [showHelp, setShowHelp] = useState(false);
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     // Carregar índice e favoritos na inicialização
@@ -100,6 +104,29 @@ function App() {
     }
   };
 
+  // Configurar atalhos de teclado
+  useKeyboardShortcuts({
+    ctrlK: () => {
+      searchInputRef.current?.focus();
+      trackKeyboardShortcut('ctrl_k', 'focus_search');
+    },
+    ctrlB: () => {
+      handleShowFavorites();
+      trackKeyboardShortcut('ctrl_b', 'toggle_favorites');
+    },
+    escape: () => {
+      // ESC é tratado dentro do SearchBar
+      if (showHelp) {
+        setShowHelp(false);
+        trackHelpModal('close');
+      }
+    },
+    help: () => {
+      setShowHelp(true);
+      trackHelpModal('open');
+    }
+  });
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
@@ -115,7 +142,17 @@ function App() {
                 </p>
               </div>
             </div>
-            <ThemeToggle />
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowHelp(true)}
+                className="text-blue-100 hover:text-white transition-colors text-sm px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
+                title="Atalhos de teclado (?)"
+              >
+                <span className="hidden sm:inline">Atalhos</span>
+                <span className="sm:hidden">?</span>
+              </button>
+              <ThemeToggle />
+            </div>
           </div>
           {dataInfo && (
             <div className="mt-3 text-xs text-blue-100">
@@ -128,7 +165,11 @@ function App() {
       </header>
 
       {/* Search Bar */}
-      <SearchBar onSearch={handleSearch} onShowFavorites={handleShowFavorites} />
+      <SearchBar 
+        ref={searchInputRef}
+        onSearch={handleSearch} 
+        onShowFavorites={handleShowFavorites} 
+      />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-6">
@@ -210,7 +251,7 @@ function App() {
             >
               Política de Privacidade
             </a>
-            <span>•</span>
+            {/* <span>•</span>
             <a 
               href="https://github.com/harlemsilvas/nbs-helper" 
               target="_blank" 
@@ -218,13 +259,16 @@ function App() {
               className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               GitHub
-            </a>
+            </a> */}
           </div>
         </div>
       </footer>
 
       {/* Cookie Consent Banner */}
       <CookieConsent />
+
+      {/* Keyboard Shortcuts Help */}
+      {showHelp && <KeyboardShortcutsHelp onClose={() => setShowHelp(false)} />}
     </div>
   );
 }
