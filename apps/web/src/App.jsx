@@ -74,6 +74,7 @@ function App() {
   const [showContactModal, setShowContactModal] = useState(false);
   const [showHelpInfo, setShowHelpInfo] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -527,66 +528,131 @@ function App() {
       </main>
 
       {/* Footer Ad Banner */}
+      {/* Important Disclaimer Banner */}
+      {showDisclaimer && (
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border-y border-yellow-200 dark:border-yellow-800">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex-1">
+                <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                  ⚠️ <strong>Ferramenta de apoio.</strong> Confirme com seu contador e a legislação do seu município.
+                </p>
+                <p className="mt-1 text-xs text-yellow-700 dark:text-yellow-300">
+                  Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de Serviços) • gov.br
+                </p>
+              </div>
+              <button
+                onClick={() => setShowDisclaimer(false)}
+                className="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 dark:hover:text-yellow-200 transition-colors"
+                title="Fechar aviso"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {ADSENSE_CONFIG.settings.showFooterBanner && (
         <HorizontalAdBanner className="bg-white dark:bg-gray-800 border-t dark:border-gray-700" />
       )}
 
-      {/* Footer */}
-      <footer className="mt-12 py-6 bg-white dark:bg-gray-800 border-t dark:border-gray-700">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center text-sm text-gray-600 dark:text-gray-300">
-            <p>
-              ⚠️ <strong>Ferramenta de apoio.</strong> Confirme com seu contador
-              e a legislação do seu município.
+      {/* Contact Section */}
+      <div className="bg-white dark:bg-gray-800 border-t dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="text-center">
+            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4">
+              📞 Entre em contato
             </p>
-            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-              Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de Serviços) •
-              gov.br
-            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+              <button
+                onClick={() => {
+                  trackContact("form");
+                  setShowContactModal(true);
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors text-sm"
+                title="Enviar mensagem"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Enviar Mensagem</span>
+              </button>
 
-            {/* Contact Information */}
-            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
-                📞 Entre em contato
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-                <button
-                  onClick={() => {
-                    trackContact("form");
-                    setShowContactModal(true);
-                  }}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors text-sm"
-                  title="Enviar mensagem"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>Enviar Mensagem</span>
-                </button>
+              <a
+                href="https://wa.me/5511967745351?text=Olá! Vim através do NBS Helper e gostaria de saber mais."
+                onClick={() => trackContact("whatsapp")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors text-sm"
+                title="Abrir WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span className="hidden xs:inline">(11) 96774-5351</span>
+                <span className="xs:hidden">WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                <a
-                  href="https://wa.me/5511967745351?text=Olá! Vim através do NBS Helper e gostaria de saber mais."
-                  onClick={() => trackContact("whatsapp")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors text-sm"
-                  title="Abrir WhatsApp"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span className="hidden xs:inline">(11) 96774-5351</span>
-                  <span className="xs:hidden">WhatsApp</span>
-                </a>
-              </div>
+      {/* Footer - GitHub Style */}
+      <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Logo/Brand */}
+            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+              <BookOpen className="w-5 h-5" />
+              <span className="text-sm">© 2026 NBS Helper</span>
             </div>
 
-            <div className="mt-4 flex items-center justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+            {/* Links */}
+            <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-600 dark:text-gray-400">
+              <a
+                href="https://github.com/harlemsilvas/nbs-helper"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                GitHub
+              </a>
               <a
                 href="/politica-privacidade.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                Política de Privacidade
+                Privacidade
               </a>
-            </div>
+              <button
+                onClick={() => setShowHelpInfo(true)}
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                Ajuda
+              </button>
+              <button
+                onClick={() => {
+                  trackContact("footer");
+                  setShowContactModal(true);
+                }}
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                Contato
+              </button>
+              <a
+                href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/nbs-nomenclatura-brasileira-de-servicos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                NBS 2.0 Oficial
+              </a>
+            </nav>
+          </div>
+
+          {/* Bottom text */}
+          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
+            <p className="text-xs text-gray-500 dark:text-gray-500">
+              Ferramenta gratuita de busca de códigos NBS 2.0 (Nomenclatura Brasileira de Serviços)
+            </p>
           </div>
         </div>
       </footer>
