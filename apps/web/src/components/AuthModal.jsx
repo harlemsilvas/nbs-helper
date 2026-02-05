@@ -227,8 +227,26 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
     }
   };
 
+  const handleOverlayClick = (e) => {
+    // Só fecha se clicar exatamente no overlay (não em elementos filhos)
+    if (e.target === e.currentTarget && !loading) {
+      handleClose();
+    }
+  };
+
+  // Prevenir fechamento ao pressionar ESC durante loading
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape" && !loading) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className="auth-modal-overlay" onClick={handleClose}>
+    <div 
+      className="auth-modal-overlay" 
+      onClick={handleOverlayClick}
+      onKeyDown={handleKeyDown}
+    >
       <div className="auth-modal" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="auth-modal-header">
