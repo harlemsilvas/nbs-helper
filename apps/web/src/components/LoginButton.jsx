@@ -2,21 +2,26 @@ import { useState } from 'react';
 import { LogIn, LogOut, User, Loader2 } from 'lucide-react';
 import { logout } from '../services/authService';
 import AuthModal from './AuthModal';
+import ConfirmDialog from './ConfirmDialog';
 
 export default function LoginButton({ user, onLoginSuccess }) {
   const [loading, setLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
-  const handleLogout = async () => {
-    if (confirm('Deseja realmente sair? Seus favoritos permanecerão salvos na nuvem.')) {
-      setLoading(true);
-      try {
-        await logout();
-      } catch (error) {
-        alert('Erro ao fazer logout. Tente novamente.');
-      } finally {
-        setLoading(false);
-      }
+  const handleLogoutClick = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const handleLogoutConfirm = async () => {
+    setShowLogoutConfirm(false);
+    setLoading(true);
+    try {
+      await logout();
+    } catch (error) {
+      alert('Erro ao fazer logout. Tente novamente.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,7 +58,7 @@ export default function LoginButton({ user, onLoginSuccess }) {
 
         {/* Logout Button */}
         <button
-          onClick={handleLogout}
+          onClick={handleLogoutClick}
           className="flex items-center gap-1.5 px-3 py-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors text-sm"
           title="Sair"
         >
@@ -80,6 +85,18 @@ export default function LoginButton({ user, onLoginSuccess }) {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onSuccess={onLoginSuccess}
+      />
+
+      {/* Logout Confirmation */}
+      <ConfirmDialog 
+        isOpen={showLogoutConfirm}
+        onConfirm={handleLogoutConfirm}
+        onCancel={() => setShowLogoutConfirm(false)}
+        title="Confirmar Logout"
+        message="Deseja realmente sair? Seus favoritos permanecerão salvos na nuvem."
+        confirmText="Sim, sair"
+        cancelText="Cancelar"
+        type="warning"
       />
     </>
   );

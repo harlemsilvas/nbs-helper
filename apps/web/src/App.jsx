@@ -18,6 +18,7 @@ import CookiePreferencesModal from "./components/CookiePreferencesModal";
 import NBSImportanceModal from "./components/NBSImportanceModal";
 import PrivacyPolicyModal from "./components/PrivacyPolicyModal";
 import LoginPromptModal from "./components/LoginPromptModal";
+import ConfirmDialog from "./components/ConfirmDialog";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -88,6 +89,7 @@ function App() {
   const [showNBSImportance, setShowNBSImportance] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -339,18 +341,17 @@ function App() {
     );
   };
 
-  const handleClearAllFavorites = async () => {
+  const handleClearAllFavorites = () => {
     if (favorites.length === 0) {
       alert("Não há favoritos para limpar.");
       return;
     }
+    setShowClearConfirm(true);
+  };
 
-    const confirmed = window.confirm(
-      `⚠️ Tem certeza que deseja limpar TODOS os ${favorites.length} favoritos?\n\nEsta ação não pode ser desfeita!`,
-    );
-
-    if (!confirmed) return;
-
+  const handleClearConfirmed = async () => {
+    setShowClearConfirm(false);
+    
     try {
       // Limpar localmente
       clearAllFavorites();
@@ -858,6 +859,18 @@ function App() {
           setShowAuthModal(true);
         }}
         favoriteCount={favorites.length}
+      />
+
+      {/* Clear All Favorites Confirmation */}
+      <ConfirmDialog 
+        isOpen={showClearConfirm}
+        onConfirm={handleClearConfirmed}
+        onCancel={() => setShowClearConfirm(false)}
+        title="Limpar Todos os Favoritos"
+        message={`Tem certeza que deseja limpar TODOS os ${favorites.length} favoritos? Esta ação não pode ser desfeita!`}
+        confirmText="Sim, limpar tudo"
+        cancelText="Cancelar"
+        type="danger"
       />
 
       {/* PWA Install Prompt */}
