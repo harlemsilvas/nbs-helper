@@ -48,34 +48,30 @@ export default function ContactModal({ isOpen, onClose }) {
     setErrors({});
 
     try {
-      // FormSubmit.co - serviço gratuito de formulários
-      // Substitua YOUR_EMAIL pelo seu email
-      const response = await fetch(
-        "https://formsubmit.co/ajax/harlem.claumann@gmail.com",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-            _subject: `[NBS Helper] Contato de ${formData.name}`,
-            _template: "table",
-            _captcha: "false",
-          }),
+      // Web3Forms - serviço gratuito sem problemas de CORS
+      // Access Key: obtido em https://web3forms.com
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-      );
+        body: JSON.stringify({
+          access_key: "8c3f2d1e-4b5a-6c7d-8e9f-0a1b2c3d4e5f", // Substitua pela sua chave
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `[NBS Helper] Contato de ${formData.name}`,
+          from_name: "NBS Helper",
+          to: "harlem.claumann@gmail.com",
+        }),
+      });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        console.error("Erro FormSubmit:", response.status, data);
-        throw new Error(
-          data.message || `Erro ${response.status}: ${response.statusText}`,
-        );
+      if (!response.ok || !data.success) {
+        console.error("Erro Web3Forms:", response.status, data);
+        throw new Error(data.message || "Erro ao enviar mensagem");
       }
 
       setStatus("success");
