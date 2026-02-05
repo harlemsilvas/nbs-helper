@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Download, X, CheckCircle2, Calendar, Hash } from 'lucide-react';
+import { Download, X, CheckCircle2, Calendar, Hash, AlertCircle, LogIn } from 'lucide-react';
 import { trackEvent } from '../services/analytics';
 
-export default function ReceivedFavoritesModal({ sharedData, onImport, onClose }) {
+export default function ReceivedFavoritesModal({ sharedData, onImport, onClose, user, onLoginClick }) {
   const [importing, setImporting] = useState(false);
   const [imported, setImported] = useState(false);
 
@@ -122,12 +122,48 @@ export default function ReceivedFavoritesModal({ sharedData, onImport, onClose }
           </div>
 
           {/* Info Box */}
-          <div className="mb-6 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
-            <p className="text-sm text-purple-800 dark:text-purple-200">
-              💡 <strong>O que acontecerá:</strong> Estes códigos serão{' '}
-              <strong>adicionados</strong> aos seus favoritos existentes. Códigos
-              duplicados serão ignorados automaticamente.
-            </p>
+          <div className="mb-6">
+            {!user ? (
+              /* Não logado - Aviso para fazer login */
+              <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg mb-4">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm text-yellow-800 dark:text-yellow-200 font-medium mb-2">
+                      ⚠️ Você não está logado
+                    </p>
+                    <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-3">
+                      Os favoritos serão salvos apenas neste navegador. Para sincronizar na nuvem e acessar de qualquer dispositivo, faça login antes de importar.
+                    </p>
+                    <button
+                      onClick={() => {
+                        onClose();
+                        onLoginClick?.();
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg text-sm font-medium transition-colors"
+                    >
+                      <LogIn className="w-4 h-4" />
+                      Fazer Login Agora
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* Logado - Info normal */
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg mb-4">
+                <p className="text-sm text-green-800 dark:text-green-200">
+                  ✅ <strong>Você está logado!</strong> Os favoritos serão salvos na nuvem e sincronizados em todos os seus dispositivos.
+                </p>
+              </div>
+            )}
+            
+            <div className="p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
+              <p className="text-sm text-purple-800 dark:text-purple-200">
+                💡 <strong>O que acontecerá:</strong> Estes códigos serão{' '}
+                <strong>adicionados</strong> aos seus favoritos existentes. Códigos
+                duplicados serão ignorados automaticamente.
+              </p>
+            </div>
           </div>
 
           {/* Import Button */}

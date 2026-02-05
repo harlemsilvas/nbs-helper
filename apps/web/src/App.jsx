@@ -13,6 +13,7 @@ import ShareModal from "./components/ShareModal";
 import ReceivedFavoritesModal from "./components/ReceivedFavoritesModal";
 import ContactModal from "./components/ContactModal";
 import HelpInfoModal from "./components/HelpInfoModal";
+import AuthModal from "./components/AuthModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -72,6 +73,7 @@ function App() {
   const [receivedData, setReceivedData] = useState(null);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showHelpInfo, setShowHelpInfo] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -640,6 +642,8 @@ function App() {
             setShowReceivedModal(false);
             setReceivedData(null);
           }}
+          user={user}
+          onLoginClick={() => setShowAuthModal(true)}
         />
       )}
 
@@ -658,6 +662,19 @@ function App() {
           onClose={() => setShowHelpInfo(false)}
         />
       )}
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={() => {
+          setShowAuthModal(false);
+          // Reabrir modal de favoritos compartilhados se tiver dados
+          if (receivedData) {
+            setShowReceivedModal(true);
+          }
+        }}
+      />
 
       {/* PWA Install Prompt */}
       <InstallPWA />
