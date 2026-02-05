@@ -17,6 +17,15 @@
             line-height: 1.6;
             color: #333;
             background: #f9fafb;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        /* Dark Mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #111827;
+                color: #f3f4f6;
+            }
         }
         
         .container {
@@ -31,6 +40,12 @@
             padding: 40px 20px;
             text-align: center;
             margin-bottom: 40px;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            header {
+                background: linear-gradient(to right, #1e40af, #1e3a8a);
+            }
         }
         
         header h1 {
@@ -48,6 +63,14 @@
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             margin-bottom: 40px;
+            transition: background-color 0.3s;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .content {
+                background: #1f2937;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            }
         }
         
         h2 {
@@ -57,11 +80,23 @@
             font-size: 1.5rem;
         }
         
+        @media (prefers-color-scheme: dark) {
+            h2 {
+                color: #60a5fa;
+            }
+        }
+        
         h3 {
             color: #2563eb;
             margin-top: 20px;
             margin-bottom: 10px;
             font-size: 1.2rem;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            h3 {
+                color: #93c5fd;
+            }
         }
         
         p {
@@ -81,12 +116,26 @@
             color: #1f2937;
         }
         
+        @media (prefers-color-scheme: dark) {
+            strong {
+                color: #e5e7eb;
+            }
+        }
+        
         .highlight {
             background: #dbeafe;
             padding: 15px;
             border-left: 4px solid #2563eb;
             margin: 20px 0;
             border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .highlight {
+                background: #1e3a8a;
+                border-left-color: #60a5fa;
+            }
         }
         
         .back-link {
@@ -104,11 +153,46 @@
             background: #1d4ed8;
         }
         
+        @media (prefers-color-scheme: dark) {
+            .back-link {
+                background: #1e40af;
+            }
+            
+            .back-link:hover {
+                background: #1e3a8a;
+            }
+        }
+        
         footer {
             text-align: center;
             padding: 20px;
             color: #6b7280;
             font-size: 0.875rem;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            footer {
+                color: #9ca3af;
+            }
+        }
+        
+        a {
+            color: #2563eb;
+            transition: color 0.2s;
+        }
+        
+        a:hover {
+            color: #1d4ed8;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            a {
+                color: #60a5fa;
+            }
+            
+            a:hover {
+                color: #93c5fd;
+            }
         }
         
         @media (max-width: 768px) {

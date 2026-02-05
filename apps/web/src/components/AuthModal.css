@@ -23,6 +23,7 @@
   max-height: 90vh;
   overflow-y: auto;
   animation: slideUp 0.3s ease-out;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Dark Mode */
@@ -101,7 +102,7 @@
   font-weight: 500;
   color: #374151;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
@@ -167,6 +168,7 @@
   font-weight: 500;
   font-size: 0.875rem;
   text-transform: lowercase;
+  transition: color 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -182,6 +184,7 @@
   background: #f3f4f6;
   padding: 0.5rem;
   border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -201,7 +204,7 @@
   font-size: 0.875rem;
   color: #6b7280;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -258,6 +261,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: #374151;
+  transition: color 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -272,7 +276,7 @@
   border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 0.875rem;
-  transition: all 0.2s;
+  transition: all 0.3s;
   background: white;
   color: #111827;
 }
@@ -306,6 +310,7 @@
 .auth-form-group small {
   font-size: 0.75rem;
   color: #6b7280;
+  transition: color 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -326,6 +331,7 @@
   align-items: center;
   gap: 0.5rem;
   animation: shake 0.4s ease-in-out;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -347,7 +353,7 @@
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -372,6 +378,7 @@
   color: #6b7280;
   text-align: center;
   margin: 0;
+  transition: color 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -383,6 +390,7 @@
 .auth-terms a {
   color: #3b82f6;
   text-decoration: underline;
+  transition: color 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
