@@ -1,5 +1,6 @@
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
-import { auth, googleProvider } from '../config/firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { auth, googleProvider, db } from '../config/firebase';
 import { trackEvent } from './analytics';
 
 /**
@@ -8,11 +9,41 @@ import { trackEvent } from './analytics';
 export async function loginWithGoogle() {
   try {
     const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+    
+    // Verificar se é o primeiro login do usuário
+    const userDocRef = doc(db, 'users', user.uid);
+    const userDoc = await getDoc(userDocRef);
+    
+    if (!userDoc.exists()) {
+      // Primeiro login - criar documento com dados do Google
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        fullName: user.displayName || '',
+        email: user.email,
+        photoURL: user.photoURL || '',
+        createdAt: new Date().toISOString(),
+        provider: 'google.com',
+        lastLoginAt: new Date().toISOString(),
+      });
+      
+      trackEvent('user_created', {
+        method: 'google',
+        user_id: user.uid
+      });
+    } else {
+      // Atualizar último login
+      await setDoc(userDocRef, {
+        lastLoginAt: new Date().toISOString(),
+      }, { merge: true });
+    }
+    
     trackEvent('login', {
       method: 'google',
-      user_id: result.user.uid
+      user_id: user.uid
     });
-    return result.user;
+    
+    return user;
   } catch (error) {
     console.error('Erro ao fazer login:', error);
     trackEvent('login_error', {

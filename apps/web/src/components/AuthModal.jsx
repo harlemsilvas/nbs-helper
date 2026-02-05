@@ -56,7 +56,13 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
         throw new Error("Preencha todos os campos");
       }
 
-      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      const result = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      
+      // Atualizar último login
+      const userDocRef = doc(db, 'users', result.user.uid);
+      await setDoc(userDocRef, {
+        lastLoginAt: new Date().toISOString(),
+      }, { merge: true });
 
       // Limpar formulário
       setFormData({
