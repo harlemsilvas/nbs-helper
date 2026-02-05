@@ -14,6 +14,8 @@ import ReceivedFavoritesModal from "./components/ReceivedFavoritesModal";
 import ContactModal from "./components/ContactModal";
 import HelpInfoModal from "./components/HelpInfoModal";
 import AuthModal from "./components/AuthModal";
+import CookiePreferencesModal from "./components/CookiePreferencesModal";
+import NBSImportanceModal from "./components/NBSImportanceModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -75,6 +77,8 @@ function App() {
   const [showHelpInfo, setShowHelpInfo] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
+  const [showCookiePrefs, setShowCookiePrefs] = useState(false);
+  const [showNBSImportance, setShowNBSImportance] = useState(false);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -557,7 +561,8 @@ function App() {
         <HorizontalAdBanner className="bg-white dark:bg-gray-800 border-t dark:border-gray-700" />
       )}
 
-      {/* Contact Section */}
+      {/* Contact Section - DESATIVADO TEMPORARIAMENTE */}
+      {/* 
       <div className="bg-white dark:bg-gray-800 border-t dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="text-center">
@@ -593,27 +598,34 @@ function App() {
           </div>
         </div>
       </div>
+      */}
 
       {/* Footer - GitHub Style */}
       <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Logo/Brand */}
-            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-              <BookOpen className="w-5 h-5" />
-              <span className="text-sm">© 2026 NBS Helper</span>
+          {/* Top Row - Brand + Links */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+            {/* Logo/Brand + WhatsApp */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <BookOpen className="w-6 h-6" />
+                <span className="text-base font-semibold">© 2026 NBS Helper</span>
+              </div>
+              <a
+                href="https://wa.me/5511967745351?text=Olá! Vim através do NBS Helper."
+                onClick={() => trackContact("footer_whatsapp")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors text-sm"
+                title="Fale conosco no WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span className="hidden sm:inline">(11) 96774-5351</span>
+              </a>
             </div>
 
             {/* Links */}
             <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-600 dark:text-gray-400">
-              <a
-                href="https://github.com/harlemsilvas/nbs-helper"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-              >
-                GitHub
-              </a>
               <a
                 href="/politica-privacidade.html"
                 target="_blank"
@@ -637,19 +649,30 @@ function App() {
               >
                 Contato
               </button>
-              <a
-                href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/nbs-nomenclatura-brasileira-de-servicos"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setShowNBSImportance(true)}
                 className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                NBS 2.0 Oficial
-              </a>
+                Por que a NBS?
+              </button>
+              <button
+                onClick={() => setShowCookiePrefs(true)}
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                Gerenciar Cookies
+              </button>
             </nav>
           </div>
 
-          {/* Bottom text */}
-          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
+          {/* Middle Row - Social Media Icons Placeholder */}
+          <div className="flex items-center justify-center gap-4 py-4 border-y border-gray-200 dark:border-gray-800">
+            <p className="text-xs text-gray-500 dark:text-gray-500">
+              {/* Espaço reservado para ícones de redes sociais */}
+            </p>
+          </div>
+
+          {/* Bottom Row - Description */}
+          <div className="mt-6 text-center">
             <p className="text-xs text-gray-500 dark:text-gray-500">
               Ferramenta gratuita de busca de códigos NBS 2.0 (Nomenclatura Brasileira de Serviços)
             </p>
@@ -740,6 +763,18 @@ function App() {
             setShowReceivedModal(true);
           }
         }}
+      />
+
+      {/* Cookie Preferences Modal */}
+      <CookiePreferencesModal
+        isOpen={showCookiePrefs}
+        onClose={() => setShowCookiePrefs(false)}
+      />
+
+      {/* NBS Importance Modal */}
+      <NBSImportanceModal
+        isOpen={showNBSImportance}
+        onClose={() => setShowNBSImportance(false)}
       />
 
       {/* PWA Install Prompt */}
