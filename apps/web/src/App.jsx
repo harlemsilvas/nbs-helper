@@ -16,6 +16,7 @@ import HelpInfoModal from "./components/HelpInfoModal";
 import AuthModal from "./components/AuthModal";
 import CookiePreferencesModal from "./components/CookiePreferencesModal";
 import NBSImportanceModal from "./components/NBSImportanceModal";
+import PrivacyPolicyModal from "./components/PrivacyPolicyModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -55,6 +56,8 @@ import {
   Mail,
   MessageCircle,
   Info,
+  Keyboard,
+  Library,
 } from "lucide-react";
 
 function App() {
@@ -79,6 +82,7 @@ function App() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [showCookiePrefs, setShowCookiePrefs] = useState(false);
   const [showNBSImportance, setShowNBSImportance] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -395,11 +399,11 @@ function App() {
               />
               <button
                 onClick={() => setShowTemplatesModal(true)}
-                className="text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
-                title="Templates por perfil (Ctrl+T)"
+                className="flex items-center gap-1.5 text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
+                title="Modelos prontos por perfil profissional (Ctrl+T)"
               >
-                <span className="hidden sm:inline">Templates</span>
-                <span className="sm:hidden">✨</span>
+                <Library className="w-4 h-4" />
+                <span className="hidden sm:inline">Modelos</span>
               </button>
               <button
                 onClick={() => setShowHelpInfo(true)}
@@ -410,11 +414,10 @@ function App() {
               </button>
               <button
                 onClick={() => setShowHelp(true)}
-                className="text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
+                className="hidden sm:flex items-center text-blue-100 hover:text-white transition-colors px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
                 title="Atalhos de teclado (?)"
               >
-                <span className="hidden sm:inline">Atalhos</span>
-                <span className="sm:hidden">?</span>
+                <Keyboard className="w-4 h-4" />
               </button>
               <ThemeToggle />
             </div>
@@ -539,10 +542,12 @@ function App() {
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1">
                 <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                  ⚠️ <strong>Ferramenta de apoio.</strong> Confirme com seu contador e a legislação do seu município.
+                  ⚠️ <strong>Ferramenta de apoio.</strong> Confirme com seu
+                  contador e a legislação do seu município.
                 </p>
                 <p className="mt-1 text-xs text-yellow-700 dark:text-yellow-300">
-                  Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de Serviços) • gov.br
+                  Dados oficiais da NBS 2.0 (Nomenclatura Brasileira de
+                  Serviços) • gov.br
                 </p>
               </div>
               <button
@@ -609,7 +614,9 @@ function App() {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <BookOpen className="w-6 h-6" />
-                <span className="text-base font-semibold">© 2026 NBS Helper</span>
+                <span className="text-base font-semibold">
+                  © 2026 NBS Helper
+                </span>
               </div>
               <a
                 href="https://wa.me/5511967745351?text=Olá! Vim através do NBS Helper."
@@ -626,14 +633,12 @@ function App() {
 
             {/* Links */}
             <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-gray-600 dark:text-gray-400">
-              <a
-                href="/politica-privacidade.html"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setShowPrivacyModal(true)}
                 className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 Privacidade
-              </a>
+              </button>
               <button
                 onClick={() => setShowHelpInfo(true)}
                 className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -665,16 +670,17 @@ function App() {
           </div>
 
           {/* Middle Row - Social Media Icons Placeholder */}
-          <div className="flex items-center justify-center gap-4 py-4 border-y border-gray-200 dark:border-gray-800">
+          {/* <div className="flex items-center justify-center gap-4 py-4 border-y border-gray-200 dark:border-gray-800">
             <p className="text-xs text-gray-500 dark:text-gray-500">
-              {/* Espaço reservado para ícones de redes sociais */}
+              Espaço reservado para ícones de redes sociais
             </p>
-          </div>
+          </div> */}
 
           {/* Bottom Row - Description */}
           <div className="mt-6 text-center">
             <p className="text-xs text-gray-500 dark:text-gray-500">
-              Ferramenta gratuita de busca de códigos NBS 2.0 (Nomenclatura Brasileira de Serviços)
+              Ferramenta de busca de códigos NBS 2.0 (Nomenclatura Brasileira de
+              Serviços)
             </p>
           </div>
         </div>
@@ -753,7 +759,7 @@ function App() {
       )}
 
       {/* Auth Modal */}
-      <AuthModal 
+      <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onSuccess={() => {
@@ -775,6 +781,12 @@ function App() {
       <NBSImportanceModal
         isOpen={showNBSImportance}
         onClose={() => setShowNBSImportance(false)}
+      />
+
+      {/* Privacy Policy Modal */}
+      <PrivacyPolicyModal
+        isOpen={showPrivacyModal}
+        onClose={() => setShowPrivacyModal(false)}
       />
 
       {/* PWA Install Prompt */}
