@@ -17,6 +17,7 @@ import AuthModal from "./components/AuthModal";
 import CookiePreferencesModal from "./components/CookiePreferencesModal";
 import NBSImportanceModal from "./components/NBSImportanceModal";
 import PrivacyPolicyModal from "./components/PrivacyPolicyModal";
+import LoginPromptModal from "./components/LoginPromptModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -83,6 +84,7 @@ function App() {
   const [showCookiePrefs, setShowCookiePrefs] = useState(false);
   const [showNBSImportance, setShowNBSImportance] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -215,6 +217,18 @@ function App() {
           await addFavoriteToCloud(user.uid, item);
         } catch (error) {
           console.error("Erro ao adicionar favorito na nuvem:", error);
+        }
+      } else {
+        // Usuário NÃO logado: verificar se deve mostrar prompt de login
+        const dismissed = localStorage.getItem("nbs-login-prompt-dismissed");
+        const shownThisSession = sessionStorage.getItem("nbs-login-prompt-shown");
+        
+        // Mostrar quando atingir 3 favoritos (momento de valor percebido)
+        if (updated.length === 3 && !dismissed && !shownThisSession) {
+          setTimeout(() => {
+            setShowLoginPrompt(true);
+            sessionStorage.setItem("nbs-login-prompt-shown", "true");
+          }, 500); // Delay para melhor UX
         }
       }
     }
@@ -787,6 +801,17 @@ function App() {
       <PrivacyPolicyModal
         isOpen={showPrivacyModal}
         onClose={() => setShowPrivacyModal(false)}
+      />
+
+      {/* Login Prompt Modal */}
+      <LoginPromptModal
+        isOpen={showLoginPrompt}
+        onClose={() => setShowLoginPrompt(false)}
+        onLogin={() => {
+          setShowLoginPrompt(false);
+          setShowAuthModal(true);
+        }}
+        favoriteCount={favorites.length}
       />
 
       {/* PWA Install Prompt */}
