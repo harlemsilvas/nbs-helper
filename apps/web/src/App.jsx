@@ -25,6 +25,7 @@ import {
   getFavorites,
   addFavorite,
   removeFavorite,
+  clearAllFavorites,
 } from "./services/favorites";
 import { onAuthChange } from "./services/authService";
 import {
@@ -33,6 +34,7 @@ import {
   addFavoriteToCloud,
   removeFavoriteFromCloud,
   watchFavorites,
+  clearCloudFavorites,
 } from "./services/favoritesCloud";
 import {
   getSharedCodeFromURL,
@@ -59,6 +61,7 @@ import {
   Info,
   Keyboard,
   Library,
+  Trash2,
 } from "lucide-react";
 
 function App() {
@@ -221,8 +224,10 @@ function App() {
       } else {
         // Usuário NÃO logado: verificar se deve mostrar prompt de login
         const dismissed = localStorage.getItem("nbs-login-prompt-dismissed");
-        const shownThisSession = sessionStorage.getItem("nbs-login-prompt-shown");
-        
+        const shownThisSession = sessionStorage.getItem(
+          "nbs-login-prompt-shown",
+        );
+
         // Mostrar quando atingir 3 favoritos (momento de valor percebido)
         if (updated.length === 3 && !dismissed && !shownThisSession) {
           setTimeout(() => {
@@ -332,6 +337,39 @@ function App() {
     alert(
       `✨ ${newFavorites.length} ${newFavorites.length === 1 ? "código adicionado" : "códigos adicionados"} aos favoritos!`,
     );
+  };
+
+  const handleClearAllFavorites = async () => {
+    if (favorites.length === 0) {
+      alert("Não há favoritos para limpar.");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `⚠️ Tem certeza que deseja limpar TODOS os ${favorites.length} favoritos?\n\nEsta ação não pode ser desfeita!`,
+    );
+
+    if (!confirmed) return;
+
+    try {
+      // Limpar localmente
+      clearAllFavorites();
+      setFavorites([]);
+
+      // Se logado, limpar da nuvem também
+      if (user) {
+        await clearCloudFavorites(user.uid);
+      }
+
+      // Voltar para busca normal
+      setShowFavorites(false);
+      handleSearch("");
+
+      alert("✅ Todos os favoritos foram limpos com sucesso!");
+    } catch (error) {
+      console.error("Erro ao limpar favoritos:", error);
+      alert("❌ Erro ao limpar favoritos. Tente novamente.");
+    }
   };
 
   // Cálculos de paginação
@@ -488,6 +526,14 @@ function App() {
               >
                 <span className="hidden xs:inline">Exportar</span>
                 <span className="xs:hidden">⬇</span>
+              </button>
+              <button
+                onClick={handleClearAllFavorites}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-red-200 dark:bg-red-900/50 text-red-900 dark:text-red-200 rounded-lg hover:bg-red-300 dark:hover:bg-red-900/70 transition-colors text-sm font-medium"
+                title="Limpar todos os favoritos"
+              >
+                <Trash2 className="w-4 h-4" />
+                <span className="hidden sm:inline">Limpar</span>
               </button>
               <button
                 onClick={handleShowFavorites}

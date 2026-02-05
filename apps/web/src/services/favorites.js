@@ -36,3 +36,8 @@ export function removeFavorite(code) {
 export function isFavorite(code) {
   return getFavorites().some((f) => f.code === code);
 }
+
+export function clearAllFavorites() {
+  saveFavorites([]);
+  return [];
+}
