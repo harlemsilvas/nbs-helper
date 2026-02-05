@@ -32,7 +32,15 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Para username, remover caracteres não permitidos em tempo real
+    if (name === "username") {
+      const cleanValue = value.replace(/[^a-zA-Z0-9_]/g, "");
+      setFormData((prev) => ({ ...prev, [name]: cleanValue }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+
     setError(""); // Limpar erro ao digitar
   };
 
@@ -116,12 +124,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
 
       if (username.trim().length < 3) {
         throw new Error("Nome de usuário deve ter pelo menos 3 caracteres");
-      }
-
-      if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-        throw new Error(
-          "Nome de usuário deve conter apenas letras, números e _",
-        );
       }
 
       if (phone.length < 10) {
@@ -242,8 +244,8 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
   };
 
   return (
-    <div 
-      className="auth-modal-overlay" 
+    <div
+      className="auth-modal-overlay"
       onClick={handleOverlayClick}
       onKeyDown={handleKeyDown}
     >
@@ -371,11 +373,12 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
-                  placeholder="joao_silva"
+                  placeholder="joao_silva123"
                   disabled={loading}
                   autoComplete="username"
+                  maxLength={20}
                 />
-                <small>Apenas letras, números e _ (sem espaços)</small>
+                <small>⚠️ Apenas letras, números e _ (caracteres especiais serão removidos automaticamente)</small>
               </div>
 
               <div className="auth-form-group">
@@ -423,10 +426,12 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="Mínimo 6 caracteres"
+                  placeholder="Ex: Teste123*, Senha@2026"
                   disabled={loading}
                   autoComplete="new-password"
+                  minLength={6}
                 />
+                <small>✅ Pode usar letras, números e caracteres especiais (!@#$%*)</small>
               </div>
 
               <div className="auth-form-group">
