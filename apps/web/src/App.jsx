@@ -12,6 +12,7 @@ import TemplatesModal from "./components/TemplatesModal";
 import ShareModal from "./components/ShareModal";
 import ReceivedFavoritesModal from "./components/ReceivedFavoritesModal";
 import ContactModal from "./components/ContactModal";
+import HelpInfoModal from "./components/HelpInfoModal";
 import { HorizontalAdBanner } from "./components/AdBanner";
 import { useKeyboardShortcuts } from "./hooks/useKeyboardShortcuts";
 import { searchNBS, loadIndex, getDatasetInfo } from "./services/searchLocal";
@@ -50,6 +51,7 @@ import {
   ChevronRight,
   Mail,
   MessageCircle,
+  Info,
 } from "lucide-react";
 
 function App() {
@@ -69,6 +71,7 @@ function App() {
   const [showReceivedModal, setShowReceivedModal] = useState(false);
   const [receivedData, setReceivedData] = useState(null);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [showHelpInfo, setShowHelpInfo] = useState(false);
   const searchInputRef = useRef(null);
 
   // Observar mudanças de autenticação
@@ -392,6 +395,13 @@ function App() {
                 <span className="sm:hidden">✨</span>
               </button>
               <button
+                onClick={() => setShowHelpInfo(true)}
+                className="text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
+                title="Central de Ajuda - Saiba mais sobre NBS"
+              >
+                <Info className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <button
                 onClick={() => setShowHelp(true)}
                 className="text-blue-100 hover:text-white transition-colors text-xs sm:text-sm px-2 sm:px-3 py-1 border border-blue-400 rounded-lg hover:bg-blue-700/50"
                 title="Atalhos de teclado (?)"
@@ -402,6 +412,7 @@ function App() {
               <ThemeToggle />
             </div>
           </div>
+          {/* Dataset info oculta - descomente se necessário
           {dataInfo && (
             <div className="mt-2 sm:mt-3 text-xs text-blue-100">
               <span className="bg-blue-800/30 px-2 py-1 rounded">
@@ -413,6 +424,7 @@ function App() {
               </span>
             </div>
           )}
+          */}
         </div>
       </header>
 
@@ -636,6 +648,14 @@ function App() {
         <ContactModal
           isOpen={showContactModal}
           onClose={() => setShowContactModal(false)}
+        />
+      )}
+
+      {/* Help Info Modal */}
+      {showHelpInfo && (
+        <HelpInfoModal
+          isOpen={showHelpInfo}
+          onClose={() => setShowHelpInfo(false)}
         />
       )}
 
