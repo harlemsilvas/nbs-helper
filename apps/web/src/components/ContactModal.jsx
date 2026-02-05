@@ -64,13 +64,18 @@ export default function ContactModal({ isOpen, onClose }) {
             message: formData.message,
             _subject: `[NBS Helper] Contato de ${formData.name}`,
             _template: "table",
-            _captcha: "false", // Desabilitar captcha (pode habilitar se necessário)
+            _captcha: "false",
           }),
         },
       );
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Erro ao enviar mensagem");
+        console.error("Erro FormSubmit:", response.status, data);
+        throw new Error(
+          data.message || `Erro ${response.status}: ${response.statusText}`,
+        );
       }
 
       setStatus("success");
@@ -248,7 +253,13 @@ export default function ContactModal({ isOpen, onClose }) {
                     strokeLinecap="round"
                   />
                 </svg>
-                <span>Erro ao enviar mensagem. Tente novamente.</span>
+                <div>
+                  <strong>Erro ao enviar mensagem</strong>
+                  <p style={{ fontSize: "0.875rem", marginTop: "4px" }}>
+                    Verifique o console (F12) para mais detalhes ou tente
+                    novamente em alguns minutos.
+                  </p>
+                </div>
               </div>
             )}
 
