@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBS Helper - OG Image</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      color: white;
+      padding: 60px;
+      max-width: 900px;
+    }
+
+    .logo {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      letter-spacing: -1px;
+    }
+
+    .title {
+      font-size: 72px;
+      font-weight: 800;
+      margin-bottom: 30px;
+      line-height: 1.1;
+      letter-spacing: -2px;
+    }
+
+    .description {
+      font-size: 36px;
+      font-weight: 400;
+      opacity: 0.95;
+      line-height: 1.4;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 24px;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .pattern {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pattern"></div>
+  <div class="container">
+    <div class="logo">🔍 NBS Helper</div>
+    <h1 class="title">Busca de Códigos NBS 2.0</h1>
+    <p class="description">Encontre códigos para NFS-e em segundos</p>
+    <div class="badge">✓ Gratuito • 1.237 códigos</div>
+  </div>
+</body>
+
+</html>
