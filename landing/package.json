@@ -1,6 +1,6 @@
 {
   "name": "nbs-helper-landing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Landing page para NBS Helper - Busca de Códigos NBS 2.0",
   "scripts": {
     "dev": "python3 -m http.server 8080",
