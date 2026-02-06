@@ -1,0 +1,25 @@
+{
+  "name": "nbs-helper-landing",
+  "version": "1.0.0",
+  "description": "Landing page para NBS Helper - Busca de Códigos NBS 2.0",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "build": "npm run build:css && npm run build:html",
+    "build:css": "npx tailwindcss -o ./styles.css --minify",
+    "build:html": "html-minifier index.html --collapse-whitespace --remove-comments --minify-css true --minify-js true -o index.min.html",
+    "deploy:vercel": "vercel --prod",
+    "deploy:netlify": "netlify deploy --prod --dir=."
+  },
+  "keywords": [
+    "nbs",
+    "nota-fiscal",
+    "nfs-e",
+    "landing-page"
+  ],
+  "author": "NBS Helper Team",
+  "license": "MIT",
+  "devDependencies": {
+    "html-minifier": "^4.0.0",
+    "tailwindcss": "^3.4.1"
+  }
+}

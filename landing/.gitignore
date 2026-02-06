@@ -1,0 +1,24 @@
+# Build outputs
+dist/
+build/
+*.min.html
+*.min.css
+*.min.js
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+
+# Cache
+.cache/
+.parcel-cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
