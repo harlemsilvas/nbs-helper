@@ -6,8 +6,13 @@
   "devCommand": "npm run dev",
   "redirects": [
     {
-      "source": "/:path*",
-      "destination": "https://nbs-helper.vercel.app/app/:path*",
+      "source": "/",
+      "destination": "https://nbs-helper.vercel.app/app",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?!app).*)",
+      "destination": "https://nbs-helper.vercel.app/app/:path",
       "permanent": true
     }
   ]
