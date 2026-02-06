@@ -7,6 +7,7 @@ import KeyboardShortcutsHelp from "./components/KeyboardShortcutsHelp";
 import LoginButton from "./components/LoginButton";
 import SyncModal from "./components/SyncModal";
 import InstallPWA from "./components/InstallPWA";
+import UpdateNotifier from "./components/UpdateNotifier";
 import ExportModal from "./components/ExportModal";
 import TemplatesModal from "./components/TemplatesModal";
 import ShareModal from "./components/ShareModal";
@@ -351,7 +352,7 @@ function App() {
 
   const handleClearConfirmed = async () => {
     setShowClearConfirm(false);
-    
+
     try {
       // Limpar localmente
       clearAllFavorites();
@@ -862,7 +863,7 @@ function App() {
       />
 
       {/* Clear All Favorites Confirmation */}
-      <ConfirmDialog 
+      <ConfirmDialog
         isOpen={showClearConfirm}
         onConfirm={handleClearConfirmed}
         onCancel={() => setShowClearConfirm(false)}
@@ -875,6 +876,9 @@ function App() {
 
       {/* PWA Install Prompt */}
       <InstallPWA />
+
+      {/* PWA Update Notifier */}
+      <UpdateNotifier />
     </div>
   );
 }

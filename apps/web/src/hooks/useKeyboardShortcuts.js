@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 /**
  * Hook para gerenciar atalhos de teclado globais
@@ -11,10 +11,12 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
 
     const handleKeyDown = (event) => {
       // Ignorar se estiver digitando em um input/textarea (exceto para atalhos específicos)
-      const isTyping = ['INPUT', 'TEXTAREA', 'SELECT'].includes(event.target.tagName);
-      
+      const isTyping = ["INPUT", "TEXTAREA", "SELECT"].includes(
+        event.target.tagName,
+      );
+
       // Ctrl+K ou Cmd+K (Mac) - busca rápida
-      if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+      if ((event.ctrlKey || event.metaKey) && event.key === "k") {
         event.preventDefault();
         if (shortcuts.ctrlK) {
           shortcuts.ctrlK(event);
@@ -23,7 +25,7 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
       }
 
       // ESC - fechar/limpar
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         if (shortcuts.escape) {
           shortcuts.escape(event);
         }
@@ -31,7 +33,7 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
       }
 
       // Ctrl+B ou Cmd+B - favoritos
-      if ((event.ctrlKey || event.metaKey) && event.key === 'b') {
+      if ((event.ctrlKey || event.metaKey) && event.key === "b") {
         event.preventDefault();
         if (shortcuts.ctrlB) {
           shortcuts.ctrlB(event);
@@ -40,7 +42,7 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
       }
 
       // Ctrl+E ou Cmd+E - exportar
-      if ((event.ctrlKey || event.metaKey) && event.key === 'e') {
+      if ((event.ctrlKey || event.metaKey) && event.key === "e") {
         event.preventDefault();
         if (shortcuts.ctrlE) {
           shortcuts.ctrlE(event);
@@ -48,8 +50,8 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
         return;
       }
 
-      // Ctrl+T ou Cmd+T - templates
-      if ((event.ctrlKey || event.metaKey) && event.key === 't') {
+      // Ctrl+T ou Cmd+T - modelos / templates
+      if ((event.ctrlKey || event.metaKey) && event.key === "t") {
         event.preventDefault();
         if (shortcuts.ctrlT) {
           shortcuts.ctrlT(event);
@@ -58,7 +60,7 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
       }
 
       // ArrowDown - navegação para baixo
-      if (event.key === 'ArrowDown' && !isTyping) {
+      if (event.key === "ArrowDown" && !isTyping) {
         if (shortcuts.arrowDown) {
           event.preventDefault();
           shortcuts.arrowDown(event);
@@ -67,7 +69,7 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
       }
 
       // ArrowUp - navegação para cima
-      if (event.key === 'ArrowUp' && !isTyping) {
+      if (event.key === "ArrowUp" && !isTyping) {
         if (shortcuts.arrowUp) {
           event.preventDefault();
           shortcuts.arrowUp(event);
@@ -76,7 +78,7 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
       }
 
       // Enter - confirmar
-      if (event.key === 'Enter' && !isTyping) {
+      if (event.key === "Enter" && !isTyping) {
         if (shortcuts.enter) {
           shortcuts.enter(event);
         }
@@ -84,7 +86,7 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
       }
 
       // ? - mostrar ajuda de atalhos
-      if (event.key === '?' && !isTyping) {
+      if (event.key === "?" && !isTyping) {
         event.preventDefault();
         if (shortcuts.help) {
           shortcuts.help(event);
@@ -93,8 +95,8 @@ export function useKeyboardShortcuts(shortcuts, enabled = true) {
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [shortcuts, enabled]);
 }
 
@@ -108,18 +110,18 @@ export function useKeyboardShortcut(key, callback, options = {}) {
   useEffect(() => {
     const handleKeyDown = (event) => {
       const { ctrl, alt, shift, meta } = options;
-      
+
       if (event.key !== key) return;
       if (ctrl && !event.ctrlKey) return;
       if (alt && !event.altKey) return;
       if (shift && !event.shiftKey) return;
       if (meta && !event.metaKey) return;
-      
+
       event.preventDefault();
       callback(event);
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [key, callback, options]);
 }

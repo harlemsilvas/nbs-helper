@@ -6,15 +6,18 @@ export default function KeyboardShortcutsHelp({ onClose }) {
     { keys: ["Esc"], description: "Limpar busca / Fechar dropdown" },
     { keys: ["Ctrl", "B"], description: "Abrir/Fechar favoritos" },
     { keys: ["Ctrl", "E"], description: "Exportar favoritos" },
-    { keys: ["Ctrl", "T"], description: "Abrir templates por perfil" },
+    { keys: ["Ctrl", "T"], description: "Abrir modelos por perfil" },
     { keys: ["↑", "↓"], description: "Navegar sugestões de busca" },
     { keys: ["Enter"], description: "Selecionar sugestão" },
     { keys: ["?"], description: "Mostrar esta ajuda" },
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
-      <div 
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <div
         className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full border border-gray-200 dark:border-gray-700"
         onClick={(e) => e.stopPropagation()}
       >
@@ -45,7 +48,9 @@ export default function KeyboardShortcutsHelp({ onClose }) {
                   {shortcut.keys.map((key, keyIndex) => (
                     <span key={keyIndex} className="inline-flex items-center">
                       {keyIndex > 0 && (
-                        <span className="mx-1 text-gray-400 dark:text-gray-500">+</span>
+                        <span className="mx-1 text-gray-400 dark:text-gray-500">
+                          +
+                        </span>
                       )}
                       <kbd className="px-2 py-1 text-xs font-semibold text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded shadow-sm">
                         {key}
@@ -59,7 +64,11 @@ export default function KeyboardShortcutsHelp({ onClose }) {
 
           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-              Pressione <kbd className="px-1.5 py-0.5 text-xs font-semibold bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded">?</kbd> a qualquer momento para ver estes atalhos
+              Pressione{" "}
+              <kbd className="px-1.5 py-0.5 text-xs font-semibold bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded">
+                ?
+              </kbd>{" "}
+              a qualquer momento para ver estes atalhos
             </p>
           </div>
         </div>

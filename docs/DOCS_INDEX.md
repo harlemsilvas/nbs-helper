@@ -3,6 +3,7 @@
 ## Índice Completo
 
 ### Começando
+
 1. **[README.md](../README.md)** - Visão geral do projeto
    - O que é o NBS Helper
    - Quick start
@@ -25,40 +26,78 @@
    - Métricas
    - Destaques
 
+### Marketing & Landing Page
+
+5. **[LANDING_PAGE.md](LANDING_PAGE.md)** - Landing Page completa
+   - Estrutura e design
+   - SEO e meta tags
+   - Deploy
+   - Customização
+
+### Infraestrutura & Deploy
+
+6. **[PROXY_ARCHITECTURE.md](PROXY_ARCHITECTURE.md)** - Arquitetura de Proxy
+   - Proxy reverso com Vercel
+   - Múltiplos projetos em um domínio
+   - Fluxo de dados
+   - Troubleshooting
+
 ### Desenvolvimento
-5. **[COMANDOS.md](COMANDOS.md)** - Referência rápida
+
+7. **[COMANDOS.md](COMANDOS.md)** - Referência rápida
    - Comandos de desenvolvimento
    - Build e deploy
    - Testes
    - Git
 
-6. **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solução de problemas
+8. **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solução de problemas
    - Erros comuns
    - Soluções
    - Debug
    - Reset completo
 
-7. **[CHECKLIST.md](CHECKLIST.md)** - Testes de validação
+9. **[CHECKLIST.md](CHECKLIST.md)** - Testes de validação
    - Verificações técnicas
    - Testes funcionais
    - Testes de UX
    - Edge cases
 
-8. **[FIX_ENCODING.md](FIX_ENCODING.md)** - Correção de encoding
-   - Problema identificado
-   - Solução aplicada
-   - Verificação
+10. **[FIX_ENCODING.md](FIX_ENCODING.md)** - Correção de encoding
+    - Problema identificado
+    - Solução aplicada
+    - Verificação
 
-9. **[DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)** - Guia de deploy
-   - GitHub setup
-   - Vercel deployment
-   - Configurações
+11. **[DEPLOY_GUIDE.md](DEPLOY_GUIDE.md)** - Guia de deploy
+    - GitHub setup
+    - Vercel deployment
+    - Configurações
+
+12. **[PWA_GUIDE.md](PWA_GUIDE.md)** - Guia PWA
+
+- Configuração PWA
+- Service Worker
+- Instalação offline
+
+11. **[PWA_VERSIONING.md](PWA_VERSIONING.md)** - Versionamento PWA
+
+- Sistema de atualização automática
+- Detecção de novas versões
+- Troubleshooting de cache
+- Boas práticas
+
+12. **[VERSIONING_GUIDE.md](VERSIONING_GUIDE.md)** - Guia de Versionamento
+
+- Quando usar MAJOR, MINOR, PATCH
+- Checklist de decisão
+- Workflow recomendado
+- Exemplos práticos
 
 ---
 
 ### 📂 Por Módulo
 
 #### Webapp (apps/web/)
+
 - `src/App.jsx` - Componente principal
 - `src/components/SearchBar.jsx` - Barra de busca
 - `src/components/ResultItem.jsx` - Item de resultado
@@ -68,6 +107,7 @@
 - `README.md` - Documentação do webapp
 
 #### API (apps/api/)
+
 - `src/server.js` - Servidor Express
 - `README.md` - Documentação da API
   - Endpoints
@@ -75,11 +115,13 @@
   - Exemplos
 
 #### Scripts (scripts/)
+
 - `import_nbs_node.js` - Importador CSV
 - `build_index.js` - Gerador de índice
 - `README.md` - Documentação dos scripts
 
 #### Shared (packages/shared/)
+
 - `src/types.js` - Tipos TypeScript/JSDoc
 - `src/index.js` - Utils compartilhados
 
@@ -88,38 +130,45 @@
 ## 🎯 Uso por Caso
 
 ### Quero começar agora
+
 → [README.md](README.md) + [GETTING_STARTED.md](GETTING_STARTED.md)
 
 ### Quero entender o projeto
+
 → [Ideia.md](Ideia.md) + [Projeto.md](Projeto.md)
 
 ### Algo não funciona
+
 → [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
 
 ### Quero ver progresso
+
 → [MVP_COMPLETO.md](MVP_COMPLETO.md) + [RESUMO_EXECUTIVO.md](RESUMO_EXECUTIVO.md)
 
 ### Preciso de um comando
+
 → [COMANDOS.md](COMANDOS.md)
 
 ### Vou testar tudo
+
 → [CHECKLIST.md](CHECKLIST.md)
 
 ---
 
 ## 📊 Métricas da Documentação
 
-- **Total de documentos:** 13
-- **Palavras totais:** ~15.000+
-- **Exemplos de código:** 50+
-- **Comandos prontos:** 100+
-- **Checklists:** 30+ itens
+- **Total de documentos:** 16
+- **Palavras totais:** ~18.000+
+- **Exemplos de código:** 70+
+- **Comandos prontos:** 120+
+- **Checklists:** 40+ itens
 
 ---
 
 ## 🔍 Buscar na Documentação
 
 ### Por palavra-chave:
+
 ```bash
 # Buscar "deploy"
 grep -r "deploy" *.md
@@ -129,6 +178,7 @@ grep -r "API" *.md
 ```
 
 ### Arquivos por tamanho:
+
 ```bash
 ls -lh *.md | sort -k5 -h
 ```
@@ -138,21 +188,25 @@ ls -lh *.md | sort -k5 -h
 ## 📝 Documentos por Categoria
 
 ### Essenciais (Ler primeiro)
+
 1. README.md
 2. GETTING_STARTED.md
 3. MVP_COMPLETO.md
 
 ### Referência (Consultar quando precisar)
+
 4. COMANDOS.md
 5. TROUBLESHOOTING.md
 6. CHECKLIST.md
 
 ### Planejamento (Para entender o projeto)
+
 7. Ideia.md
 8. Projeto.md
 9. RESUMO_EXECUTIVO.md
 
 ### Técnicos (Para desenvolvedores)
+
 10. apps/web/README.md
 11. apps/api/README.md
 12. scripts/README.md
@@ -162,17 +216,20 @@ ls -lh *.md | sort -k5 -h
 ## 🎓 Ordem de Leitura Recomendada
 
 ### Para usar o projeto:
+
 1. README.md (5 min)
 2. GETTING_STARTED.md (10 min)
 3. COMANDOS.md (referência)
 
 ### Para desenvolver:
+
 1. Projeto.md (20 min)
 2. Ideia.md (15 min)
-3. apps/*/README.md (10 min cada)
+3. apps/\*/README.md (10 min cada)
 4. COMANDOS.md (referência)
 
 ### Para fazer deploy:
+
 1. MVP_COMPLETO.md
 2. GETTING_STARTED.md (seção deploy)
 3. TROUBLESHOOTING.md
@@ -181,16 +238,16 @@ ls -lh *.md | sort -k5 -h
 
 ## 📞 Onde Encontrar
 
-| Preciso de... | Ver documento |
-|---------------|---------------|
-| Começar a usar | [README.md](README.md) |
-| Comandos rápidos | [COMANDOS.md](COMANDOS.md) |
-| Erro/problema | [TROUBLESHOOTING.md](TROUBLESHOOTING.md) |
-| Testar funcionalidades | [CHECKLIST.md](CHECKLIST.md) |
-| Entender o projeto | [Ideia.md](Ideia.md) |
-| Roadmap | [Projeto.md](Projeto.md) |
-| Status atual | [MVP_COMPLETO.md](MVP_COMPLETO.md) |
-| Resumo executivo | [RESUMO_EXECUTIVO.md](RESUMO_EXECUTIVO.md) |
+| Preciso de...          | Ver documento                              |
+| ---------------------- | ------------------------------------------ |
+| Começar a usar         | [README.md](README.md)                     |
+| Comandos rápidos       | [COMANDOS.md](COMANDOS.md)                 |
+| Erro/problema          | [TROUBLESHOOTING.md](TROUBLESHOOTING.md)   |
+| Testar funcionalidades | [CHECKLIST.md](CHECKLIST.md)               |
+| Entender o projeto     | [Ideia.md](Ideia.md)                       |
+| Roadmap                | [Projeto.md](Projeto.md)                   |
+| Status atual           | [MVP_COMPLETO.md](MVP_COMPLETO.md)         |
+| Resumo executivo       | [RESUMO_EXECUTIVO.md](RESUMO_EXECUTIVO.md) |
 
 ---
 
@@ -199,19 +256,23 @@ ls -lh *.md | sort -k5 -h
 Ao fazer mudanças no projeto, lembre de atualizar:
 
 ### Mudou código?
+
 - [ ] README.md (se mudou funcionalidade)
-- [ ] apps/*/README.md (se mudou módulo)
+- [ ] apps/\*/README.md (se mudou módulo)
 
 ### Adicionou feature?
+
 - [ ] GETTING_STARTED.md
 - [ ] CHECKLIST.md (adicionar testes)
 - [ ] MVP_COMPLETO.md
 
 ### Novo comando/script?
+
 - [ ] COMANDOS.md
 - [ ] README.md (seção scripts)
 
 ### Bug resolvido?
+
 - [ ] TROUBLESHOOTING.md (documentar solução)
 
 ---

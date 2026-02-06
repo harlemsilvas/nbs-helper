@@ -255,7 +255,7 @@ export default function HelpInfoModal({ isOpen, onClose }) {
                     <kbd>Ctrl</kbd> + <kbd>F</kbd> = Ver favoritos
                   </div>
                   <div>
-                    <kbd>Ctrl</kbd> + <kbd>T</kbd> = Templates
+                    <kbd>Ctrl</kbd> + <kbd>T</kbd> = Modelos
                   </div>
                   <div>
                     <kbd>?</kbd> = Mostrar atalhos
@@ -339,9 +339,9 @@ export default function HelpInfoModal({ isOpen, onClose }) {
                 </details>
 
                 <details className="help-faq">
-                  <summary>O que são os templates?</summary>
+                  <summary>O que são os Modelos?</summary>
                   <p>
-                    Templates são listas pré-configuradas de códigos NBS para
+                    Modelos são listas pré-configuradas de códigos NBS para
                     diferentes profissões (Contador, TI, Saúde, etc.).
                     Economizam tempo se você está começando ou quer explorar
                     códigos da sua área.

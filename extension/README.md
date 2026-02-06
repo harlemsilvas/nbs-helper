@@ -7,8 +7,9 @@
 ### Chrome / Edge / Brave
 
 1. **Baixe ou clone este repositório**
+
    ```bash
-   git clone https://github.com/harlemsilvas/nbs-helper.git
+
    cd nbs-helper/extension
    ```
 
@@ -45,18 +46,21 @@
 ## ✨ Funcionalidades
 
 ### 🔍 Busca Rápida
+
 - Digite código ou descrição
 - Resultados instantâneos (máx. 20)
 - Busca em códigos, descrições e palavras-chave
 - Debounce de 300ms para performance
 
 ### ⭐ Favoritos
+
 - Salve códigos com 1 clique
 - Acesso rápido na aba "Favoritos"
 - Sincronização via `chrome.storage.local`
 - Contador de favoritos no badge
 
 ### 🎨 Interface
+
 - Design clean e moderno
 - Dark mode automático
 - 400x500px (compacto)
@@ -64,6 +68,7 @@
 - Animações suaves
 
 ### 🔗 Integração
+
 - Botão para abrir app completo
 - Dados carregados do Vercel (sempre atualizados)
 - Favoritos independentes do webapp
@@ -118,12 +123,15 @@ extension/
 ### Customizar
 
 **Alterar cores:**
+
 - Edite as variáveis CSS em `popup.css` (`:root`)
 
 **Mudar URL do app:**
+
 - Edite `APP_URL` em `popup.js`
 
 **Adicionar funcionalidades:**
+
 - Edite `popup.js` (bem comentado)
 
 ## 📝 Permissões
@@ -154,16 +162,19 @@ A extensão solicita:
 ## 🐛 Problemas Comuns
 
 **Extensão não carrega:**
+
 - Certifique-se de gerar os ícones primeiro
 - Verifique se está na pasta correta
 - Veja erros em `chrome://extensions/`
 
 **Busca não funciona:**
+
 - Verifique conexão com internet
 - URL do dataset correto? (`APP_URL` em popup.js)
 - Veja console (botão direito → Inspecionar)
 
 **Favoritos não salvam:**
+
 - Permissão `storage` concedida?
 - Tente recarregar a extensão
 
@@ -174,6 +185,7 @@ MIT - Veja LICENSE no repositório principal
 ## 👨‍💻 Autor
 
 **Harlem Claumann Silva**
+
 - Email: harlemclaumannsilva@gmail.com
 - WhatsApp: +55 11 96774-5351
 

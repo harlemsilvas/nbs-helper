@@ -26,11 +26,9 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-modal {
-    background: #1f2937;
-    color: #f3f4f6;
-  }
+.dark .nbs-importance-modal {
+  background: #1f2937;
+  color: #f3f4f6;
 }
 
 /* Header */
@@ -44,11 +42,9 @@
   border-radius: 12px 12px 0 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-header {
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-    border-bottom-color: #374151;
-  }
+.dark .nbs-importance-header {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  border-bottom-color: #374151;
 }
 
 .nbs-importance-header h2 {
@@ -91,10 +87,8 @@
   color: #374151;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-intro p {
-    color: #d1d5db;
-  }
+.dark .nbs-importance-intro p {
+  color: #d1d5db;
 }
 
 /* Sections */
@@ -113,11 +107,9 @@
   transition: all 0.3s;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-card {
-    background: #111827;
-    border-color: #374151;
-  }
+.dark .nbs-importance-card {
+  background: #111827;
+  border-color: #374151;
 }
 
 .nbs-importance-card:hover {
@@ -153,41 +145,27 @@
 .nbs-importance-card-icon.orange {
   background: #fed7aa;
   color: #c2410c;
-}
-
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-card-icon.blue {
-    background: #1e3a8a;
-    color: #93c5fd;
-  }
-
-  .nbs-importance-card-icon.green {
-    background: #064e3b;
-    color: #6ee7b7;
-  }
-
-  .nbs-importance-card-icon.purple {
-    background: #581c87;
-    color: #d8b4fe;
-  }
-
-  .nbs-importance-card-icon.orange {
-    background: #7c2d12;
-    color: #fdba74;
-  }
-}
-
-.nbs-importance-card h3 {
+}\n\n.dark .nbs-importance-card-icon.blue {
+  background: #1e3a8a;
+  color: #93c5fd;
+}\n\n.dark .nbs-importance-card-icon.green {
+  background: #064e3b;
+  color: #6ee7b7;
+}\n\n.dark .nbs-importance-card-icon.purple {
+  background: #581c87;
+  color: #d8b4fe;
+}\n\n.dark .nbs-importance-card-icon.orange {
+  background: #7c2d12;
+  color: #fdba74;
+}\n\n.nbs-importance-card h3 {
   font-size: 1.125rem;
   font-weight: 600;
   color: #111827;
   margin: 0 0 0.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-card h3 {
-    color: #f3f4f6;
-  }
+.dark .nbs-importance-card h3 {
+  color: #f3f4f6;
 }
 
 .nbs-importance-card p {
@@ -197,10 +175,8 @@
   margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-card p {
-    color: #9ca3af;
-  }
+.dark .nbs-importance-card p {
+  color: #9ca3af;
 }
 
 /* Dataset Info */
@@ -212,11 +188,9 @@
   margin-bottom: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-dataset {
-    background: #1e3a8a;
-    border-left-color: #60a5fa;
-  }
+.dark .nbs-importance-dataset {
+  background: #1e3a8a;
+  border-left-color: #60a5fa;
 }
 
 .nbs-importance-dataset h3 {
@@ -226,10 +200,8 @@
   margin: 0 0 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-dataset h3 {
-    color: #93c5fd;
-  }
+.dark .nbs-importance-dataset h3 {
+  color: #93c5fd;
 }
 
 .nbs-importance-dataset-grid {
@@ -250,10 +222,8 @@
   color: #1e40af;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-dataset-grid strong {
-    color: #60a5fa;
-  }
+.dark .nbs-importance-dataset-grid strong {
+  color: #60a5fa;
 }
 
 .nbs-importance-dataset-grid span {
@@ -261,10 +231,8 @@
   color: #3b82f6;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-dataset-grid span {
-    color: #93c5fd;
-  }
+.dark .nbs-importance-dataset-grid span {
+  color: #93c5fd;
 }
 
 /* Important Note */
@@ -276,11 +244,9 @@
   margin-bottom: 1.5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-note {
-    background: #78350f;
-    border-left-color: #fbbf24;
-  }
+.dark .nbs-importance-note {
+  background: #78350f;
+  border-left-color: #fbbf24;
 }
 
 .nbs-importance-note p {
@@ -290,10 +256,8 @@
   line-height: 1.6;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-note p {
-    color: #fde68a;
-  }
+.dark .nbs-importance-note p {
+  color: #fde68a;
 }
 
 /* Links */
@@ -324,17 +288,15 @@
   transform: translateX(4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-link {
-    background: #374151;
-    border-color: #4b5563;
-    color: #f3f4f6;
-  }
-  
-  .nbs-importance-link:hover {
-    background: #4b5563;
-    border-color: #6b7280;
-  }
+.dark .nbs-importance-link {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+.dark .nbs-importance-link:hover {
+  background: #4b5563;
+  border-color: #6b7280;
 }
 
 /* Footer */
@@ -347,11 +309,9 @@
   background: #f9fafb;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-footer {
-    background: #111827;
-    border-top-color: #374151;
-  }
+.dark .nbs-importance-footer {
+  background: #111827;
+  border-top-color: #374151;
 }
 
 .nbs-importance-btn-primary {
@@ -371,10 +331,8 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  .nbs-importance-btn-primary {
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-  }
+.dark .nbs-importance-btn-primary {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
 }
 
 /* Animations */

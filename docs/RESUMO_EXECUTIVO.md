@@ -23,6 +23,7 @@
 ## Funcionalidades da Aplicação
 
 ### Webapp
+
 - Busca inteligente com Fuse.js
 - 1237 códigos NBS 2.0 disponíveis
 - Copiar código/descrição com 1 clique
@@ -31,6 +32,7 @@
 - Performance < 100ms por busca
 
 ### Tecnologias
+
 - React 18 + Vite 7
 - Tailwind CSS
 - Fuse.js (busca fuzzy)
@@ -38,6 +40,7 @@
 - LocalStorage (favoritos)
 
 ### API REST
+
 - Express + CORS
 - 4 endpoints funcionando
 - Paginação implementada
@@ -48,6 +51,7 @@
 ## Arquivos do Projeto
 
 ### Código Principal
+
 ```
 apps/web/src/App.jsx
 apps/web/src/components/SearchBar.jsx
@@ -62,6 +66,7 @@ packages/shared/src/types.js
 ```
 
 ### Dados
+
 ```
 data/raw/NBSa_2-0.csv (97KB oficial)
 data/generated/nbs.json (processado)
@@ -69,6 +74,7 @@ data/generated/index.json (busca)
 ```
 
 ### Documentação
+
 ```
 README.md
 docs/GETTING_STARTED.md
@@ -81,12 +87,14 @@ docs/CHECKLIST.md
 ## Como Usar
 
 ### Webapp:
+
 ```bash
 npm run dev:web
 # http://localhost:5173
 ```
 
 ### API:
+
 ```bash
 npm run dev:api
 # http://localhost:3001
@@ -96,21 +104,22 @@ npm run dev:api
 
 ## 📊 Métricas
 
-| Métrica | Valor |
-|---------|-------|
-| Códigos NBS | 1237 |
-| Tamanho CSV | 97KB |
-| Componentes React | 3 |
-| Serviços | 2 |
-| Endpoints API | 4 |
-| Tempo de busca | < 100ms |
-| Cobertura MVP | 100% ✅ |
+| Métrica           | Valor   |
+| ----------------- | ------- |
+| Códigos NBS       | 1237    |
+| Tamanho CSV       | 97KB    |
+| Componentes React | 3       |
+| Serviços          | 2       |
+| Endpoints API     | 4       |
+| Tempo de busca    | < 100ms |
+| Cobertura MVP     | 100% ✅ |
 
 ---
 
 ## ✨ Funcionalidades Implementadas
 
 ### MVP Semana 1 (100% Completo)
+
 - [x] Importação automática do CSV oficial
 - [x] 1237 códigos processados e indexados
 - [x] Busca fuzzy inteligente
@@ -121,6 +130,7 @@ npm run dev:api
 - [x] Documentação completa
 
 ### Extras Implementados
+
 - [x] Tailwind CSS configurado
 - [x] Lucide React para ícones
 - [x] Detecção automática de encoding CSV
@@ -134,6 +144,7 @@ npm run dev:api
 ## 🎯 Testes Recomendados
 
 ### Quick Test (2 minutos)
+
 1. Acesse http://localhost:5173
 2. Busque "software"
 3. Copie um código
@@ -141,6 +152,7 @@ npm run dev:api
 5. Veja favoritos
 
 ### Full Test
+
 Execute: [CHECKLIST.md](CHECKLIST.md)
 
 ---
@@ -148,20 +160,23 @@ Execute: [CHECKLIST.md](CHECKLIST.md)
 ## 📝 Próximos Passos
 
 ### Semana 2 (Deploy)
-- [ ] Build para produção
-- [ ] Deploy Vercel (webapp)
+
+- [x] Build para produção
+- [x] Deploy Vercel (webapp)
 - [ ] Deploy Render/Railway (API)
 - [ ] Domínio customizado
-- [ ] Analytics básico
+- [x] Analytics básico
 
 ### Semana 3-4 (Produto)
-- [ ] Login Google OAuth
-- [ ] Favoritos na nuvem
+
+- [x] Login Google OAuth
+- [x] Favoritos na nuvem
 - [ ] Templates por empresa
 - [ ] Landing page
 - [ ] Checkout (monetização)
 
 ### Fase 2 (Extensão)
+
 - [ ] Extensão Chrome/Edge
 - [ ] Autofill em portais
 - [ ] Sincronização cross-device
@@ -171,18 +186,20 @@ Execute: [CHECKLIST.md](CHECKLIST.md)
 ## 💡 Destaques
 
 ### O que deu certo
+
 ✅ Importador inteligente (detecta delimitador)  
 ✅ Busca muito rápida com Fuse.js  
 ✅ Interface limpa e profissional  
 ✅ Favoritos funcionam perfeitamente  
-✅ Copiar é instantâneo  
+✅ Copiar é instantâneo
 
 ### Diferenciais
+
 🎯 Dados oficiais (gov.br)  
 ⚡ Performance alta  
 📱 Mobile-ready desde dia 1  
 🔍 Busca por keywords derivadas  
-🎨 Design moderno (não parece MVP)  
+🎨 Design moderno (não parece MVP)
 
 ---
 
@@ -199,11 +216,13 @@ Execute: [CHECKLIST.md](CHECKLIST.md)
 ## 📞 Suporte
 
 ### Problemas?
+
 1. Leia [GETTING_STARTED.md](GETTING_STARTED.md)
 2. Execute [CHECKLIST.md](CHECKLIST.md)
 3. Verifique console do navegador (F12)
 
 ### Re-instalar
+
 ```bash
 rm -rf node_modules apps/*/node_modules
 npm install
@@ -221,13 +240,16 @@ cd apps/api && npm install
 ✅ **Tecnologia moderna**  
 ✅ **Interface profissional**  
 ✅ **Deploy-ready**  
-✅ **Escalável**  
+✅ **Escalável**
 
 ### Próximo Milestone
+
 **Deploy público** e validação com primeiros usuários.
 
 ### Potencial
+
 Este MVP pode ser monetizado como:
+
 - Freemium (busca grátis, favoritos Pro)
 - B2B (escritórios de contabilidade)
 - Extensão premium
@@ -238,6 +260,6 @@ Este MVP pode ser monetizado como:
 **Desenvolvido em:** ~1 hora  
 **Linhas de código:** ~800  
 **Arquivos criados:** 20+  
-**Status:** 🚀 PRONTO PARA O MUNDO  
+**Status:** 🚀 PRONTO PARA O MUNDO
 
 **Parabéns! 🎊**

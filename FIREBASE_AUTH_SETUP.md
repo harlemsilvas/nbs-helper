@@ -32,14 +32,14 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
-    
+
     // Coleção de usernames - para evitar duplicatas
     match /usernames/{username} {
       allow read: if true;
       allow create: if request.auth != null;
       allow update, delete: if request.auth != null && resource.data.uid == request.auth.uid;
     }
-    
+
     // Favoritos dos usuários (estrutura existente)
     match /users/{userId}/favorites/{favoriteId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
@@ -53,6 +53,7 @@ service cloud.firestore {
 O sistema agora cria duas coleções:
 
 #### `users` (dados do usuário)
+
 ```javascript
 {
   uid: "abc123...",
@@ -66,6 +67,7 @@ O sistema agora cria duas coleções:
 ```
 
 #### `usernames` (reserva de usernames únicos)
+
 ```javascript
 {
   uid: "abc123...",
@@ -87,12 +89,14 @@ O sistema agora cria duas coleções:
 ### 6. Validações Implementadas
 
 **Login:**
+
 - Email válido
 - Senha não vazia
 
 **Cadastro:**
+
 - Nome completo (mínimo 3 caracteres)
-- Username único (mínimo 3 caracteres, apenas letras, números e _)
+- Username único (mínimo 3 caracteres, apenas letras, números e \_)
 - Email válido
 - Telefone (mínimo 10 dígitos)
 - Senha (mínimo 6 caracteres)
@@ -112,6 +116,7 @@ npm run dev
 ```
 
 Então:
+
 1. Clique no botão "Entrar"
 2. Selecione "Entrar com Email" no dropdown
 3. Teste o cadastro na aba "Criar Conta"
