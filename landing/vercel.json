@@ -5,11 +5,11 @@
   "rewrites": [
     {
       "source": "/app",
-      "destination": "https://web-ashen-theta-31.vercel.app"
+      "destination": "https://nbs-helper-web.vercel.app"
     },
     {
       "source": "/app/:path*",
-      "destination": "https://web-ashen-theta-31.vercel.app/:path*"
+      "destination": "https://nbs-helper-web.vercel.app/:path*"
     },
     {
       "source": "/api/:path*",
