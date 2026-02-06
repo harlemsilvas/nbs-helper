@@ -1,36 +1,41 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="apple-touch-icon" href="/icon-192.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
-    <meta name="theme-color" content="#2563eb" />
-    
-    <!-- SEO Meta Tags -->
-    <title>NBS Helper - Busca de Códigos NBS 2.0 para NFS-e | Ferramenta Gratuita</title>
-    <meta name="description" content="Busca rápida e inteligente de códigos NBS 2.0 para emissão de NFS-e. 1237 códigos da Nomenclatura Brasileira de Serviços disponíveis. Ferramenta gratuita para contadores e empresas." />
-    <meta name="keywords" content="NBS, NBS 2.0, NFS-e, códigos NBS, nomenclatura brasileira de serviços, nota fiscal eletrônica, busca NBS, código de serviço, tabela NBS, consulta NBS, emissão nota fiscal" />
-    <meta name="author" content="NBS Helper" />
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="Portuguese" />
-    <link rel="canonical" href="https://nbs-helper.vercel.app/app" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nbs-helper.vercel.app/app" />
-    <meta property="og:site_name" content="NBS Helper" />
-    <meta property="og:title" content="NBS Helper - Busca de Códigos NBS 2.0" />
-    <meta property="og:description" content="Encontre códigos NBS 2.0 para emissão de NFS-e de forma rápida e fácil. Busca inteligente com 1237 códigos oficiais." />
-    <meta property="og:locale" content="pt_BR" />
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="NBS Helper - Busca de Códigos NBS 2.0" />
-    <meta name="twitter:description" content="Busca rápida de códigos NBS 2.0 para NFS-e. Ferramenta gratuita com 1237 códigos oficiais." />
-    
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <meta name="theme-color" content="#2563eb" />
+
+  <!-- SEO Meta Tags -->
+  <title>NBS Helper - Busca de Códigos NBS 2.0 para NFS-e | Ferramenta Gratuita</title>
+  <meta name="description"
+    content="Busca rápida e inteligente de códigos NBS 2.0 para emissão de NFS-e. 1237 códigos da Nomenclatura Brasileira de Serviços disponíveis. Ferramenta gratuita para contadores e empresas." />
+  <meta name="keywords"
+    content="NBS, NBS 2.0, NFS-e, códigos NBS, nomenclatura brasileira de serviços, nota fiscal eletrônica, busca NBS, código de serviço, tabela NBS, consulta NBS, emissão nota fiscal" />
+  <meta name="author" content="NBS Helper" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Portuguese" />
+  <link rel="canonical" href="https://nbs-helper.vercel.app/app" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nbs-helper.vercel.app/app" />
+  <meta property="og:site_name" content="NBS Helper" />
+  <meta property="og:title" content="NBS Helper - Busca de Códigos NBS 2.0" />
+  <meta property="og:description"
+    content="Encontre códigos NBS 2.0 para emissão de NFS-e de forma rápida e fácil. Busca inteligente com 1237 códigos oficiais." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NBS Helper - Busca de Códigos NBS 2.0" />
+  <meta name="twitter:description"
+    content="Busca rápida de códigos NBS 2.0 para NFS-e. Ferramenta gratuita com 1237 códigos oficiais." />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
@@ -53,34 +58,36 @@
       "keywords": "NBS 2.0, NFS-e, códigos NBS, nomenclatura brasileira de serviços"
     }
     </script>
-    
-    <!-- Google Analytics com Consent Mode -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      
-      // Configurar consent padrão (negado até aceitar)
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'wait_for_update': 500
-      });
-      
-      gtag('js', new Date());
-      gtag('config', 'G-GVP0PYQ54S', {
-        'anonymize_ip': true,
-        'cookie_flags': 'SameSite=None;Secure'
-      });
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVP0PYQ54S"></script>
 
-    <!-- Google AdSense -->
-    <!-- IMPORTANTE: Substituir ca-pub-XXXXXXXXXXXXXXXX pelo seu ID real do AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-            crossorigin="anonymous"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <!-- Google Analytics com Consent Mode -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+
+    // Configurar consent padrão (negado até aceitar)
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'wait_for_update': 500
+    });
+
+    gtag('js', new Date());
+    gtag('config', 'G-GVP0PYQ54S', {
+      'anonymize_ip': true,
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVP0PYQ54S"></script>
+
+  <!-- Google AdSense -->
+  <!-- IMPORTANTE: Substituir ca-pub-XXXXXXXXXXXXXXXX pelo seu ID real do AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
