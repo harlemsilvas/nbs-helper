@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nbs-helper.vercel.app/sitemap.xml
+Sitemap: https://nbs-helper-web.vercel.app/sitemap.xml

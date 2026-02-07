@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-  base: "/app/",
+  base: "/",
   plugins: [
     react(),
     VitePWA({
@@ -32,8 +32,8 @@ export default defineConfig({
         display: "standalone",
 
         // ✅ IMPORTANTE: start_url deve bater com basePath
-        start_url: "/app/",
-        scope: "/app/",
+        start_url: "/",
+        scope: "/",
 
         icons: [
           // ✅ DICA: aqui use caminhos relativos ao scope
