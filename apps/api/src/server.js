@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import compression from "compression";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 
@@ -12,7 +12,9 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Carregar dados NBS
-const dataPath = resolve(__dirname, "../../data/generated/nbs.json");
+const localDataPath = resolve(__dirname, "../data/generated/nbs.json");
+const rootDataPath = resolve(__dirname, "../../data/generated/nbs.json");
+const dataPath = existsSync(localDataPath) ? localDataPath : rootDataPath;
 let nbsData = null;
 
 try {
@@ -66,7 +68,7 @@ app.get("/search", (req, res) => {
   if (!q || q.trim() === "") {
     const results = nbsData.items.slice(
       parseInt(offset),
-      parseInt(offset) + parseInt(limit)
+      parseInt(offset) + parseInt(limit),
     );
     return res.json({
       query: "",
@@ -77,7 +79,10 @@ app.get("/search", (req, res) => {
     });
   }
 
-  const query = q.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const query = q
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
 
   // Busca simples por descrição e keywords
   const matches = nbsData.items
@@ -101,7 +106,7 @@ app.get("/search", (req, res) => {
 
   const results = matches.slice(
     parseInt(offset),
-    parseInt(offset) + parseInt(limit)
+    parseInt(offset) + parseInt(limit),
   );
 
   res.json({
@@ -118,7 +123,11 @@ app.use((req, res) => {
   res.status(404).json({ error: "Endpoint não encontrado" });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 API rodando em http://localhost:${PORT}`);
-  console.log(`📊 ${nbsData.items.length} códigos NBS disponíveis`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 API rodando em http://localhost:${PORT}`);
+    console.log(`📊 ${nbsData.items.length} códigos NBS disponíveis`);
+  });
+}
+
+export default app;
