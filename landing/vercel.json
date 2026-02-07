@@ -1,13 +1,11 @@
 {
   "rewrites": [
-    {
-      "source": "/app",
-      "destination": "https://nbs-helper-web.vercel.app"
-    },
+    { "source": "/app", "destination": "https://nbs-helper-web.vercel.app" },
     {
       "source": "/app/:path*",
       "destination": "https://nbs-helper-web.vercel.app/:path*"
     },
+
     {
       "source": "/api/:path*",
       "destination": "https://nbs-helper-api.vercel.app/:path*"
