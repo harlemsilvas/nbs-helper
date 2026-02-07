@@ -6,7 +6,8 @@ let dataset = null;
 export async function loadIndex() {
   if (fuse) return;
 
-  const res = await fetch("/index.json");
+  // const res = await fetch("/index.json");
+  const res = await fetch(`${import.meta.env.BASE_URL}index.json`);
   dataset = await res.json();
 
   fuse = new Fuse(dataset.items, {
@@ -23,7 +24,7 @@ export async function loadIndex() {
 export async function searchNBS(query) {
   await loadIndex();
   const q = (query || "").trim();
-  
+
   if (!q) {
     // Retorna os primeiros 50 itens se não houver busca
     return dataset.items.slice(0, 50);

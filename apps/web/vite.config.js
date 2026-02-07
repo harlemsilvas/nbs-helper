@@ -2,17 +2,26 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
-// https://vite.dev/config/
 export default defineConfig({
   base: "/app/",
   plugins: [
     react(),
     VitePWA({
       registerType: "prompt",
-      includeAssets: ["index.json", "politica-privacidade.html"],
+      // Esses assets precisam existir em /public do app web (apps/web/public)
+      includeAssets: [
+        "index.json",
+        "politica-privacidade.html",
+        "favicon.ico",
+        "icon-192.png",
+        "icon-512.png",
+        "og-image.png",
+      ],
+
       devOptions: {
         enabled: false,
       },
+
       manifest: {
         name: "NBS Helper - Busca de Códigos NBS 2.0",
         short_name: "NBS Helper",
@@ -21,40 +30,59 @@ export default defineConfig({
         theme_color: "#2563eb",
         background_color: "#ffffff",
         display: "standalone",
+
+        // ✅ IMPORTANTE: start_url deve bater com basePath
         start_url: "/app/",
+        scope: "/app/",
+
         icons: [
+          // ✅ DICA: aqui use caminhos relativos ao scope
+          // (sem /app) pra funcionar melhor em PWA
           {
-            src: "/icon-192.png",
+            src: "icon-192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any maskable",
           },
           {
-            src: "/icon-512.png",
+            src: "icon-512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
           },
         ],
       },
+
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,json}"],
         cleanupOutdatedCaches: true,
         skipWaiting: false,
         clientsClaim: false,
+
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            urlPattern: ({ url }) =>
+              url.origin === "https://fonts.googleapis.com",
             handler: "CacheFirst",
             options: {
               cacheName: "google-fonts-cache",
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 ano
+                maxAgeSeconds: 60 * 60 * 24 * 365,
               },
-              cacheableResponse: {
-                statuses: [0, 200],
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: ({ url }) => url.origin === "https://fonts.gstatic.com",
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-static-cache",
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60 * 24 * 365,
               },
+              cacheableResponse: { statuses: [0, 200] },
             },
           },
         ],
