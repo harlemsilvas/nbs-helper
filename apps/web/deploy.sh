@@ -2,11 +2,11 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 PROJECT_FILE="$SCRIPT_DIR/.vercel/project.json"
 
 if [[ ! -f "$PROJECT_FILE" ]]; then
-  echo "Missing $PROJECT_FILE. Run 'vercel link' inside landing first." >&2
+  echo "Missing $PROJECT_FILE. Run 'vercel link' inside apps/web first." >&2
   exit 1
 fi
 
@@ -21,5 +21,5 @@ fi
 export VERCEL_PROJECT_ID="$PROJECT_ID"
 export VERCEL_ORG_ID="$ORG_ID"
 
-echo "Deploying landing from repo root: $REPO_ROOT"
+echo "Deploying nbs-helper-web from repo root: $REPO_ROOT"
 vercel --prod --yes --cwd "$REPO_ROOT"

@@ -4,17 +4,6 @@
 <head>
   <meta charset="UTF-8" />
 
-  <!-- Redirect para domínio principal -->
-  <script>
-    // Redireciona se não estiver no domínio principal
-    if (window.location.hostname !== 'nbs-helper.vercel.app' &&
-      window.location.hostname !== 'localhost' &&
-      !window.location.hostname.match(/127\.0\.0\.1/)) {
-      const newUrl = 'https://nbs-helper.vercel.app/app' + window.location.pathname + window.location.search + window.location.hash;
-      window.location.replace(newUrl);
-    }
-  </script>
-
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
@@ -29,16 +18,16 @@
   <meta name="author" content="NBS Helper" />
   <meta name="robots" content="index, follow" />
   <meta name="language" content="Portuguese" />
-  <link rel="canonical" href="https://nbs-helper.vercel.app/app" />
+  <link rel="canonical" href="https://nbs-helper-web.vercel.app/" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://nbs-helper.vercel.app/app" />
+  <meta property="og:url" content="https://nbs-helper-web.vercel.app/" />
   <meta property="og:site_name" content="NBS Helper" />
   <meta property="og:title" content="NBS Helper - Busca de Códigos NBS 2.0" />
   <meta property="og:description"
     content="Encontre códigos NBS 2.0 para emissão de NFS-e de forma rápida e fácil. Busca inteligente com 1237 códigos oficiais." />
-  <meta property="og:image" content="https://nbs-helper.vercel.app/app/og-image.png" />
+  <meta property="og:image" content="https://nbs-helper-web.vercel.app/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="NBS Helper - Busca de Códigos NBS 2.0 para NFS-e" />
@@ -49,7 +38,7 @@
   <meta name="twitter:title" content="NBS Helper - Busca de Códigos NBS 2.0" />
   <meta name="twitter:description"
     content="Busca rápida de códigos NBS 2.0 para NFS-e. Ferramenta gratuita com 1237 códigos oficiais." />
-  <meta name="twitter:image" content="https://nbs-helper.vercel.app/app/og-image.png" />
+  <meta name="twitter:image" content="https://nbs-helper-web.vercel.app/og-image.png" />
   <meta name="twitter:image:alt" content="NBS Helper - Busca de Códigos NBS 2.0 para NFS-e" />
 
   <!-- Schema.org JSON-LD -->
@@ -59,7 +48,7 @@
       "@type": "WebApplication",
       "name": "NBS Helper",
       "description": "Ferramenta gratuita para busca de códigos NBS 2.0 para emissão de NFS-e",
-      "url": "https://nbs-helper.vercel.app/app",
+      "url": "https://nbs-helper-web.vercel.app/",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
       "offers": {
