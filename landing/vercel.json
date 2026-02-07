@@ -1,19 +1,8 @@
 {
-  "buildCommand": "echo 'No build step required'",
-  "outputDirectory": ".",
-  "framework": null,
   "rewrites": [
     {
       "source": "/app",
-      "destination": "https://nbs-helper-web.vercel.app/index.html"
-    },
-    {
-      "source": "/app/",
-      "destination": "https://nbs-helper-web.vercel.app/index.html"
-    },
-    {
-      "source": "/app/assets/:path*",
-      "destination": "https://nbs-helper-web.vercel.app/assets/:path*"
+      "destination": "https://nbs-helper-web.vercel.app"
     },
     {
       "source": "/app/:path*",
