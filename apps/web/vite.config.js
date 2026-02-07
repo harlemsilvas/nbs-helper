@@ -74,6 +74,14 @@ export default defineConfig({
             },
           },
           {
+            urlPattern: ({ url }) => url.pathname.endsWith("/index.json"),
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "nbs-index",
+              expiration: { maxEntries: 1, maxAgeSeconds: 60 * 60 * 24 },
+            },
+          },
+          {
             urlPattern: ({ url }) => url.origin === "https://fonts.gstatic.com",
             handler: "CacheFirst",
             options: {
