@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/app",
-      "destination": "https://nbs-helper-web.vercel.app/app"
+      "destination": "https://nbs-helper-web.vercel.app/"
     },
     {
       "source": "/app/:path*",
