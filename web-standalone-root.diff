@@ -1,0 +1,126 @@
+diff --git a/apps/web/index.html b/apps/web/index.html
+index 161dac9..dd6113b 100644
+--- a/apps/web/index.html
++++ b/apps/web/index.html
+@@ -4,17 +4,6 @@
+ <head>
+   <meta charset="UTF-8" />
+ 
+-  <!-- Redirect para domínio principal -->
+-  <script>
+-    // Redireciona se não estiver no domínio principal
+-    if (window.location.hostname !== 'nbs-helper.vercel.app' &&
+-      window.location.hostname !== 'localhost' &&
+-      !window.location.hostname.match(/127\.0\.0\.1/)) {
+-      const newUrl = 'https://nbs-helper.vercel.app/app' + window.location.pathname + window.location.search + window.location.hash;
+-      window.location.replace(newUrl);
+-    }
+-  </script>
+-
+   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+   <link rel="apple-touch-icon" href="/icon-192.png" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+@@ -29,16 +18,16 @@
+   <meta name="author" content="NBS Helper" />
+   <meta name="robots" content="index, follow" />
+   <meta name="language" content="Portuguese" />
+-  <link rel="canonical" href="https://nbs-helper.vercel.app/app" />
++  <link rel="canonical" href="https://nbs-helper-web.vercel.app/" />
+ 
+   <!-- Open Graph / Facebook -->
+   <meta property="og:type" content="website" />
+-  <meta property="og:url" content="https://nbs-helper.vercel.app/app" />
++  <meta property="og:url" content="https://nbs-helper-web.vercel.app/" />
+   <meta property="og:site_name" content="NBS Helper" />
+   <meta property="og:title" content="NBS Helper - Busca de Códigos NBS 2.0" />
+   <meta property="og:description"
+     content="Encontre códigos NBS 2.0 para emissão de NFS-e de forma rápida e fácil. Busca inteligente com 1237 códigos oficiais." />
+-  <meta property="og:image" content="https://nbs-helper.vercel.app/app/og-image.png" />
++  <meta property="og:image" content="https://nbs-helper-web.vercel.app/og-image.png" />
+   <meta property="og:image:width" content="1200" />
+   <meta property="og:image:height" content="630" />
+   <meta property="og:image:alt" content="NBS Helper - Busca de Códigos NBS 2.0 para NFS-e" />
+@@ -49,7 +38,7 @@
+   <meta name="twitter:title" content="NBS Helper - Busca de Códigos NBS 2.0" />
+   <meta name="twitter:description"
+     content="Busca rápida de códigos NBS 2.0 para NFS-e. Ferramenta gratuita com 1237 códigos oficiais." />
+-  <meta name="twitter:image" content="https://nbs-helper.vercel.app/app/og-image.png" />
++  <meta name="twitter:image" content="https://nbs-helper-web.vercel.app/og-image.png" />
+   <meta name="twitter:image:alt" content="NBS Helper - Busca de Códigos NBS 2.0 para NFS-e" />
+ 
+   <!-- Schema.org JSON-LD -->
+@@ -59,7 +48,7 @@
+       "@type": "WebApplication",
+       "name": "NBS Helper",
+       "description": "Ferramenta gratuita para busca de códigos NBS 2.0 para emissão de NFS-e",
+-      "url": "https://nbs-helper.vercel.app/app",
++      "url": "https://nbs-helper-web.vercel.app/",
+       "applicationCategory": "BusinessApplication",
+       "operatingSystem": "Web",
+       "offers": {
+diff --git a/apps/web/public/robots.txt b/apps/web/public/robots.txt
+index d49c5d2..37741c7 100644
+--- a/apps/web/public/robots.txt
++++ b/apps/web/public/robots.txt
+@@ -1,4 +1,4 @@
+ User-agent: *
+ Allow: /
+ 
+-Sitemap: https://nbs-helper.vercel.app/sitemap.xml
++Sitemap: https://nbs-helper-web.vercel.app/sitemap.xml
+diff --git a/apps/web/public/sitemap.xml b/apps/web/public/sitemap.xml
+index 041b052..d357301 100644
+--- a/apps/web/public/sitemap.xml
++++ b/apps/web/public/sitemap.xml
+@@ -1,13 +1,13 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url>
+-    <loc>https://nbs-helper.vercel.app/app</loc>
++    <loc>https://nbs-helper-web.vercel.app/</loc>
+     <lastmod>2026-02-06</lastmod>
+     <changefreq>weekly</changefreq>
+     <priority>1.0</priority>
+   </url>
+   <url>
+-    <loc>https://nbs-helper.vercel.app/app/politica-privacidade.html</loc>
++    <loc>https://nbs-helper-web.vercel.app/politica-privacidade.html</loc>
+     <lastmod>2026-02-06</lastmod>
+     <changefreq>monthly</changefreq>
+     <priority>0.5</priority>
+diff --git a/apps/web/vercel.json b/apps/web/vercel.json
+index d08f719..caa567b 100644
+--- a/apps/web/vercel.json
++++ b/apps/web/vercel.json
+@@ -3,6 +3,5 @@
+   "outputDirectory": "dist",
+   "framework": "vite",
+   "installCommand": "npm install",
+-  "devCommand": "npm run dev",
+-  "redirects": [{ "source": "/", "destination": "/app", "permanent": true }]
++  "devCommand": "npm run dev"
+ }
+diff --git a/apps/web/vite.config.js b/apps/web/vite.config.js
+index 9405bed..0886ad9 100644
+--- a/apps/web/vite.config.js
++++ b/apps/web/vite.config.js
+@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
+ import { VitePWA } from "vite-plugin-pwa";
+ 
+ export default defineConfig({
+-  base: "/app/",
++  base: "/",
+   plugins: [
+     react(),
+     VitePWA({
+@@ -32,8 +32,8 @@ export default defineConfig({
+         display: "standalone",
+ 
+         // ✅ IMPORTANTE: start_url deve bater com basePath
+-        start_url: "/app/",
+-        scope: "/app/",
++        start_url: "/",
++        scope: "/",
+ 
+         icons: [
+           // ✅ DICA: aqui use caminhos relativos ao scope
