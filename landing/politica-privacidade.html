@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politica de Privacidade - NBS Helper</title>
+  <meta name="description" content="Politica de Privacidade do NBS Helper - Como coletamos e usamos seus dados">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f9fafb;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Dark Mode */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #111827;
+        color: #f3f4f6;
+      }
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background: linear-gradient(to right, #2563eb, #1d4ed8);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      header {
+        background: linear-gradient(to right, #1e40af, #1e3a8a);
+      }
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      opacity: 0.9;
+    }
+
+    .content {
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+      transition: background-color 0.3s;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .content {
+        background: #1f2937;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    h2 {
+      color: #1d4ed8;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      h2 {
+        color: #60a5fa;
+      }
+    }
+
+    h3 {
+      color: #2563eb;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      h3 {
+        color: #93c5fd;
+      }
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    ul,
+    ol {
+      margin-left: 30px;
+      margin-bottom: 15px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #1f2937;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      strong {
+        color: #e5e7eb;
+      }
+    }
+
+    .highlight {
+      background: #dbeafe;
+      padding: 15px;
+      border-left: 4px solid #2563eb;
+      margin: 20px 0;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .highlight {
+        background: #1e3a8a;
+        border-left-color: #60a5fa;
+      }
+    }
+
+    .back-link {
+      display: inline-block;
+      background: #2563eb;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-bottom: 20px;
+      transition: background 0.2s;
+    }
+
+    .back-link:hover {
+      background: #1d4ed8;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .back-link {
+        background: #1e40af;
+      }
+
+      .back-link:hover {
+        background: #1e3a8a;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      footer {
+        color: #9ca3af;
+      }
+    }
+
+    a {
+      color: #2563eb;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: #1d4ed8;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      a {
+        color: #60a5fa;
+      }
+
+      a:hover {
+        color: #93c5fd;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Politica de Privacidade</h1>
+    <p>NBS Helper - Busca de Codigos NBS 2.0</p>
+  </header>
+
+  <div class="container">
+    <a href="/" class="back-link">&larr; Voltar para o NBS Helper</a>
+
+    <div class="content">
+      <h2>1. Informacoes Gerais</h2>
+      <p>Esta Politica de Privacidade descreve como o <strong>NBS Helper</strong> coleta, usa e protege
+        informacoes ao utilizar nossa plataforma.</p>
+      <p><strong>Ultima atualizacao:</strong> 03 de fevereiro de 2026</p>
+
+      <h2>2. Dados Coletados</h2>
+
+      <h3>2.1 Dados Armazenados Localmente</h3>
+      <p>O NBS Helper armazena <strong>apenas no seu navegador</strong> (LocalStorage):</p>
+      <ul>
+        <li><strong>Favoritos:</strong> Lista de codigos NBS que voce marcou como favoritos</li>
+        <li><strong>Historico de buscas:</strong> Suas ultimas 10 buscas realizadas</li>
+        <li><strong>Tema:</strong> Preferencia de modo claro/escuro</li>
+        <li><strong>Consentimento de cookies:</strong> Sua escolha sobre aceitar ou recusar cookies</li>
+      </ul>
+
+      <div class="highlight">
+        <strong>Importante:</strong> Estes dados <strong>nao sao enviados para nenhum servidor</strong> e
+        permanecem apenas no seu dispositivo.
+      </div>
+
+      <h3>2.2 Dados Analiticos (Google Analytics)</h3>
+      <p>Com seu consentimento, coletamos dados anonimos atraves do Google Analytics 4 (GA4):</p>
+      <ul>
+        <li><strong>Dados de navegacao:</strong> Paginas visitadas, tempo de permanencia</li>
+        <li><strong>Dados de uso:</strong> Buscas realizadas (termos pesquisados), codigos copiados, favoritos
+          adicionados</li>
+        <li><strong>Dados tecnicos:</strong> Tipo de navegador, sistema operacional, resolucao de tela</li>
+        <li><strong>Localizacao aproximada:</strong> Pais e cidade (baseado no IP)</li>
+      </ul>
+
+      <p><strong>O Google Analytics:</strong></p>
+      <ul>
+        <li>Anonimiza seu endereco IP</li>
+        <li>Nao coleta dados pessoais identificaveis (nome, email, CPF, etc)</li>
+        <li>Dados sao agregados e utilizados apenas para estatisticas</li>
+      </ul>
+
+      <h2>3. Finalidade do Uso dos Dados</h2>
+      <p>Os dados coletados sao utilizados para:</p>
+      <ol>
+        <li><strong>Melhorar a experiencia:</strong> Entender quais codigos sao mais buscados</li>
+        <li><strong>Otimizar a ferramenta:</strong> Identificar problemas de usabilidade</li>
+        <li><strong>Estatisticas de uso:</strong> Quantificar acessos e funcionalidades mais utilizadas</li>
+      </ol>
+
+      <p><strong>Nao utilizamos seus dados para:</strong></p>
+      <ul>
+        <li>Vender ou compartilhar com terceiros</li>
+        <li>Enviar spam ou publicidade nao solicitada</li>
+        <li>Rastreamento individual ou profiling</li>
+      </ul>
+
+      <h2>4. Cookies Utilizados</h2>
+
+      <h3>4.1 Cookies Essenciais (Sempre Ativos)</h3>
+      <ul>
+        <li><strong>cookie-consent:</strong> Armazena sua escolha sobre aceitar/recusar cookies</li>
+        <li><strong>nbs-theme:</strong> Armazena preferencia de tema (claro/escuro)</li>
+      </ul>
+
+      <h3>4.2 Cookies Analiticos (Mediante Consentimento)</h3>
+      <ul>
+        <li><strong>_ga, _ga_*:</strong> Cookies do Google Analytics para rastreamento anonimo de uso</li>
+      </ul>
+
+      <p>Voce pode <strong>aceitar ou recusar</strong> cookies analiticos atraves do banner exibido no site.</p>
+
+      <h2>5. Seus Direitos (LGPD e GDPR)</h2>
+      <p>De acordo com a <strong>Lei Geral de Protecao de Dados (LGPD)</strong> e <strong>GDPR</strong>, voce tem
+        direito a:</p>
+      <ol>
+        <li><strong>Acesso:</strong> Saber quais dados temos sobre voce</li>
+        <li><strong>Retificacao:</strong> Corrigir dados incorretos</li>
+        <li><strong>Exclusao:</strong> Solicitar remocao de seus dados</li>
+        <li><strong>Portabilidade:</strong> Obter copia dos seus dados</li>
+        <li><strong>Revogacao:</strong> Retirar consentimento a qualquer momento</li>
+      </ol>
+
+      <div class="highlight">
+        <strong>Como exercer seus direitos:</strong>
+        <ul style="margin-top: 10px;">
+          <li><strong>Excluir favoritos:</strong> Limpe os dados do navegador (Settings > Clear browsing data)
+          </li>
+          <li><strong>Revogar consentimento de cookies:</strong> Limpe os dados do site e recarregue a pagina
+          </li>
+          <li><strong>Desativar Google Analytics:</strong> Use extensoes como uBlock Origin ou Privacy Badger
+          </li>
+        </ul>
+      </div>
+
+      <h2>6. Compartilhamento de Dados</h2>
+      <p>O NBS Helper <strong>nao compartilha, vende ou aluga</strong> seus dados para terceiros.</p>
+      <p>Os unicos dados compartilhados sao com:</p>
+      <ul>
+        <li><strong>Google Analytics:</strong> Para analise anonima de uso (mediante seu consentimento)</li>
+      </ul>
+      <p>O Google esta em conformidade com LGPD e GDPR e possui suas proprias politicas de privacidade.</p>
+
+      <h2>7. Seguranca</h2>
+      <p>Medidas de seguranca implementadas:</p>
+      <ul>
+        <li>HTTPS: Conexao criptografada</li>
+        <li>LocalStorage: Dados salvos apenas no seu dispositivo</li>
+        <li>Sem banco de dados: Nao armazenamos dados em servidores proprios</li>
+        <li>Anonimizacao de IP: Google Analytics anonimiza enderecos IP</li>
+      </ul>
+
+      <h2>8. Retencao de Dados</h2>
+      <ul>
+        <li><strong>Favoritos e historico:</strong> Permanecem no seu navegador ate voce limpar os dados</li>
+        <li><strong>Google Analytics:</strong> Retidos por 26 meses (configuracao padrao do GA4)</li>
+      </ul>
+
+      <h2>9. Criancas</h2>
+      <p>O NBS Helper nao e direcionado para menores de 18 anos. Nao coletamos intencionalmente dados de criancas.</p>
+
+      <h2>10. Alteracoes nesta Politica</h2>
+      <p>Esta politica pode ser atualizada periodicamente. A data da ultima atualizacao sera sempre exibida no
+        topo.</p>
+      <p>Mudancas significativas serao comunicadas atraves de aviso no site.</p>
+
+      <h2>11. Legislacao Aplicavel</h2>
+      <p>Esta politica e regida pela legislacao brasileira, especialmente:</p>
+      <ul>
+        <li><strong>LGPD</strong> (Lei no 13.709/2018) - Lei Geral de Protecao de Dados</li>
+        <li><strong>Marco Civil da Internet</strong> (Lei no 12.965/2014)</li>
+      </ul>
+      <p>Para usuarios da Uniao Europeia, aplicam-se tambem as regras do <strong>GDPR</strong>.</p>
+
+      <h2>12. Contato</h2>
+      <p>Para duvidas sobre esta politica ou exercer seus direitos:</p>
+      <ul>
+        <li><strong>GitHub Issues:</strong> <a href="https://github.com/harlemsilvas/nbs-helper/issues"
+            target="_blank">github.com/harlemsilvas/nbs-helper/issues</a></li>
+      </ul>
+
+      <h2>13. Consentimento</h2>
+      <p>Ao usar o NBS Helper e aceitar cookies, voce concorda com esta Politica de Privacidade.</p>
+    </div>
+
+    <a href="/" class="back-link">&larr; Voltar para o NBS Helper</a>
+  </div>
+
+  <footer>
+    <p><strong>Ultima atualizacao:</strong> 03/02/2026 - <strong>Versao:</strong> 1.0</p>
+    <p>© 2026 NBS Helper - Ferramenta de busca de codigos NBS 2.0</p>
+  </footer>
+</body>
+
+</html>
