@@ -1,16 +1,18 @@
 # Como Gerar Imagens de Preview (OG Images)
 
 As imagens de preview para redes sociais (Open Graph e Twitter Cards) foram configuradas nos arquivos:
+
 - `/apps/web/public/og-image.html`
 - `/landing/og-image.html`
 
 ## Opção 1: Usando Screenshot de Navegador (Mais Fácil)
 
 1. Abra o arquivo HTML no navegador:
+
    ```bash
    # Para web app
    open apps/web/public/og-image.html
-   
+
    # Para landing
    open landing/og-image.html
    ```
@@ -24,11 +26,12 @@ As imagens de preview para redes sociais (Open Graph e Twitter Cards) foram conf
 5. Renomeie o arquivo baixado para **`og-image.png`**
 
 6. Mova para as pastas:
+
    ```bash
    # Web app
    mv ~/Downloads/og-image.png apps/web/public/
-   
-   # Landing  
+
+   # Landing
    mv ~/Downloads/og-image.png landing/
    ```
 
@@ -83,15 +86,29 @@ Cole a URL: `https://nbs-helper.vercel.app/app`
 ## Meta Tags Configuradas
 
 **Web App (`apps/web/index.html`):**
+
 ```html
-<meta property="og:image" content="https://nbs-helper.vercel.app/app/og-image.png" />
-<meta name="twitter:image" content="https://nbs-helper.vercel.app/app/og-image.png" />
+<meta
+  property="og:image"
+  content="https://nbs-helper.vercel.app/app/og-image.png"
+/>
+<meta
+  name="twitter:image"
+  content="https://nbs-helper.vercel.app/app/og-image.png"
+/>
 ```
 
 **Landing (`landing/index.html`):**
+
 ```html
-<meta property="og:image" content="https://nbs-helper.vercel.app/og-image.png" />
-<meta name="twitter:image" content="https://nbs-helper.vercel.app/og-image.png" />
+<meta
+  property="og:image"
+  content="https://nbs-helper.vercel.app/og-image.png"
+/>
+<meta
+  name="twitter:image"
+  content="https://nbs-helper.vercel.app/og-image.png"
+/>
 ```
 
 Após gerar e fazer deploy, essas imagens aparecerão automaticamente ao compartilhar o link! 🎉
