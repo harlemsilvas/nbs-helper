@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 🚀 Deploy Completo - Proxy Setup
+# 🚀 Deploy Completo - Apps Separados
 # Executa deploy de todos os projetos na ordem correta
 
 set -e
@@ -42,7 +42,7 @@ fi
 log_step "Passo 1/3: Deploy da API..."
 cd apps/api
 
-if ! vercel --prod; then
+if ! ./deploy.sh; then
     log_warning "API deploy falhou ou foi cancelado"
 else
     log_success "API deployada: https://nbs-helper-api.vercel.app"
@@ -56,12 +56,8 @@ cd ../..
 log_step "Passo 2/3: Deploy da Web App..."
 cd apps/web
 
-# Build
-log_step "Building web app..."
-npm run build
-
 # Deploy
-if ! vercel --prod; then
+if ! ./deploy.sh; then
     log_warning "Web deploy falhou ou foi cancelado"
 else
     log_success "Web deployada: https://nbs-helper-web.vercel.app"
@@ -70,12 +66,12 @@ fi
 cd ../..
 
 # ==========================================
-# PASSO 3: Deploy da Landing (Proxy)
+# PASSO 3: Deploy da Landing
 # ==========================================
-log_step "Passo 3/3: Deploy da Landing (Proxy)..."
+log_step "Passo 3/3: Deploy da Landing..."
 cd landing
 
-if ! vercel --prod; then
+if ! ./deploy.sh; then
     log_warning "Landing deploy falhou ou foi cancelado"
 else
     log_success "Landing deployada: https://nbs-helper.vercel.app"
@@ -93,8 +89,8 @@ echo "════════════════════════�
 echo ""
 echo "URLs Finais:"
 echo "  🏠 Landing:  https://nbs-helper.vercel.app/"
-echo "  📱 App:      https://nbs-helper.vercel.app/app"
-echo "  🔌 API:      https://nbs-helper.vercel.app/api"
+echo "  📱 App:      https://nbs-helper-web.vercel.app/"
+echo "  🔌 API:      https://nbs-helper-api.vercel.app/"
 echo ""
 echo "URLs Diretas (debug):"
 echo "  📱 Web:      https://nbs-helper-web.vercel.app"
@@ -102,7 +98,7 @@ echo "  🔌 API:      https://nbs-helper-api.vercel.app"
 echo ""
 echo "Próximos passos:"
 echo "  1. Teste: https://nbs-helper.vercel.app/"
-echo "  2. Teste: https://nbs-helper.vercel.app/app"
-echo "  3. Teste: https://nbs-helper.vercel.app/api/health"
+echo "  2. Teste: https://nbs-helper-web.vercel.app/"
+echo "  3. Teste: https://nbs-helper-api.vercel.app/health"
 echo "  4. Configure domínio custom (opcional)"
 echo ""

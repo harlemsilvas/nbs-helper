@@ -150,16 +150,15 @@ Ou manualmente:
 ```bash
 # 1. API
 cd apps/api
-vercel --prod
+./deploy.sh
 
-# 2. Web (IMPORTANTE: rebuild primeiro)
+# 2. Web
 cd ../web
-npm run build
-vercel --prod
+./deploy.sh
 
-# 3. Landing (Proxy)
+# 3. Landing
 cd ../../landing
-vercel --prod
+./deploy.sh
 ```
 
 ### Verificar Build Local
@@ -177,9 +176,9 @@ npm run preview  # Teste local em http://localhost:4173/app
 ### ✅ Sucesso
 
 ```
-https://nbs-helper.vercel.app/      → Landing
-https://nbs-helper.vercel.app/app   → App funcional
-https://nbs-helper.vercel.app/api   → API responde
+https://nbs-helper.vercel.app/            → Landing
+https://nbs-helper-web.vercel.app/        → App funcional
+https://nbs-helper-api.vercel.app/health  → API responde
 
 URL na barra permanece a mesma (não muda)
 Console sem erros 404
@@ -194,7 +193,7 @@ Assets 404 no console
 PWA não instala
 ```
 
-**Ação:** Rebuildar web com base path e redeploy.
+**Ação:** Rebuildar web e redeploy.
 
 ## 📝 Commit das Alterações
 
