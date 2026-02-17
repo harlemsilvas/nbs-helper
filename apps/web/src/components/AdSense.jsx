@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 /**
  * Componente para exibir anúncios do Google AdSense
@@ -7,27 +7,29 @@ import { useEffect } from 'react';
  * @param {boolean} responsive - Se o anúncio é responsivo
  * @param {string} className - Classes CSS adicionais
  */
-export default function AdSense({ 
-  slot, 
-  format = 'auto', 
+export default function AdSense({
+  slot,
+  format = "auto",
   responsive = true,
-  className = ''
+  className = "",
 }) {
   useEffect(() => {
     try {
       // Carregar anúncio quando o componente montar
-      if (window.adsbygoogle && process.env.NODE_ENV !== 'development') {
+      if (window.adsbygoogle && process.env.NODE_ENV !== "development") {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     } catch (error) {
-      console.error('Erro ao carregar AdSense:', error);
+      console.error("Erro ao carregar AdSense:", error);
     }
   }, []);
 
   // Não exibir anúncios em desenvolvimento
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     return (
-      <div className={`bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center ${className}`}>
+      <div
+        className={`bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 text-center ${className}`}
+      >
         <p className="text-sm text-gray-500 dark:text-gray-400">
           [Anúncio AdSense - Slot: {slot}]
         </p>
@@ -42,11 +44,11 @@ export default function AdSense({
     <div className={className}>
       <ins
         className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Substituir pelo seu ID
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-8326747497258830" // Substituir pelo seu ID
         data-ad-slot={slot}
         data-ad-format={format}
-        data-full-width-responsive={responsive ? 'true' : 'false'}
+        data-full-width-responsive={responsive ? "true" : "false"}
       />
     </div>
   );
