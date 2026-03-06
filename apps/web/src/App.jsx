@@ -95,7 +95,15 @@ function App() {
 
   // Observar mudanças de autenticação
   useEffect(() => {
+    let unsubscribeFavorites = null;
+
     const unsubscribe = onAuthChange(async (currentUser) => {
+      // Limpa listener anterior sempre que o estado de auth mudar.
+      if (typeof unsubscribeFavorites === "function") {
+        unsubscribeFavorites();
+        unsubscribeFavorites = null;
+      }
+
       setUser(currentUser);
 
       if (currentUser) {
@@ -119,16 +127,39 @@ function App() {
           }
 
           // Observar mudanças em tempo real
-          const unsubscribeFavorites = watchFavorites(
+          unsubscribeFavorites = watchFavorites(
             currentUser.uid,
-            (updatedFavorites) => {
-              setFavorites(updatedFavorites);
+            (updatedFavorites, listenerError) => {
+              if (listenerError) {
+                if (listenerError.code === "permission-denied") {
+                  console.warn(
+                    "Sem permissao para observar favoritos na nuvem. Usando favoritos locais.",
+                  );
+                  setFavorites(getFavorites());
+                  return;
+                }
+
+                console.error(
+                  "Erro no listener de favoritos da nuvem:",
+                  listenerError,
+                );
+                return;
+              }
+
+              if (Array.isArray(updatedFavorites)) {
+                setFavorites(updatedFavorites);
+              }
             },
           );
-
-          return () => unsubscribeFavorites();
         } catch (error) {
           console.error("Erro ao carregar favoritos da nuvem:", error);
+
+          if (error?.code === "permission-denied") {
+            console.warn(
+              "Sem permissao para carregar favoritos da nuvem. Usando favoritos locais.",
+            );
+            setFavorites(getFavorites());
+          }
         }
       } else {
         // Usuário deslogou - voltar para favoritos locais
@@ -136,7 +167,12 @@ function App() {
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      if (typeof unsubscribeFavorites === "function") {
+        unsubscribeFavorites();
+      }
+      unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -145,7 +181,16 @@ function App() {
       setLoading(true);
       try {
         await loadIndex();
+        console.log("[App:init] loadIndex concluido com sucesso");
+
         const info = getDatasetInfo();
+        console.log("[App:init] getDatasetInfo retorno:", {
+          hasInfo: Boolean(info),
+          hasItemsArray: Array.isArray(info?.items),
+          itemsCount: info?.items?.length ?? 0,
+          totalItems: info?.totalItems ?? null,
+          version: info?.version ?? null,
+        });
         setDataInfo(info);
         setFavorites(getFavorites());
 

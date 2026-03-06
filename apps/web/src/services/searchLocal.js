@@ -58,5 +58,7 @@ export function getDatasetInfo() {
     version: dataset.version ?? null,
     totalItems: dataset.totalItems ?? dataset.items?.length ?? 0,
     generatedAt: dataset.generatedAt ?? null,
+    // Mantem compatibilidade com fluxos que precisam resolver itens por codigo.
+    items: dataset.items ?? [],
   };
 }

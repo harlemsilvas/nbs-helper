@@ -89,16 +89,24 @@ export async function getFavoritesFromCloud(userId) {
  */
 export function watchFavorites(userId, callback) {
   const favoritesRef = getFavoritesRef(userId);
-  
-  return onSnapshot(favoritesRef, (snapshot) => {
-    const favorites = snapshot.docs.map(doc => ({
-      code: doc.data().code,
-      description: doc.data().description,
-      level: doc.data().level,
-      keywords: doc.data().keywords || []
-    }));
-    callback(favorites);
-  });
+
+  return onSnapshot(
+    favoritesRef,
+    (snapshot) => {
+      const favorites = snapshot.docs.map(doc => ({
+        code: doc.data().code,
+        description: doc.data().description,
+        level: doc.data().level,
+        keywords: doc.data().keywords || []
+      }));
+      callback(favorites);
+    },
+    (error) => {
+      console.error('Erro no listener de favoritos da nuvem:', error);
+      // Evita "Uncaught Error in snapshot listener" e permite fallback no chamador.
+      callback(null, error);
+    }
+  );
 }
 
 /**

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Download, X, Sparkles, CheckCircle2 } from "lucide-react";
 import templatesData from "../data/templates.json";
 import { trackEvent } from "../services/analytics";
+import { loadIndex, getDatasetInfo } from "../services/searchLocal";
 
 // Mapa de ícones (importar dinamicamente seria melhor, mas isso funciona)
 const iconMap = {
@@ -35,23 +36,70 @@ export default function TemplatesModal({ onClose, onApplyTemplate, dataInfo }) {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [applying, setApplying] = useState(false);
 
+  useEffect(() => {
+    console.log("[TemplatesModal] dataInfo recebido:", {
+      hasDataInfo: Boolean(dataInfo),
+      hasItemsArray: Array.isArray(dataInfo?.items),
+      itemsCount: dataInfo?.items?.length ?? 0,
+      version: dataInfo?.version ?? null,
+    });
+  }, [dataInfo]);
+
   const handleApplyTemplate = async (template) => {
     setApplying(true);
     setSelectedTemplate(template.id);
 
     try {
-      // Verificar se dataInfo está carregado
-      if (!dataInfo || !dataInfo.items) {
+      console.log("[TemplatesModal] Tentando aplicar template:", {
+        templateId: template.id,
+        templateName: template.name,
+        templateCodesCount: template.codes?.length ?? 0,
+        hasDataInfo: Boolean(dataInfo),
+        hasItemsArray: Array.isArray(dataInfo?.items),
+        itemsCount: dataInfo?.items?.length ?? 0,
+      });
+
+      let items = Array.isArray(dataInfo?.items) ? dataInfo.items : null;
+
+      // Fallback resiliente: tenta carregar/ler o indice no proprio modal.
+      if (!items) {
+        console.warn(
+          "[TemplatesModal] dataInfo sem items. Tentando fallback via loadIndex/getDatasetInfo.",
+        );
+        await loadIndex();
+        const fallbackInfo = getDatasetInfo();
+        items = Array.isArray(fallbackInfo?.items) ? fallbackInfo.items : null;
+
+        console.log("[TemplatesModal] Fallback dataset:", {
+          hasFallbackInfo: Boolean(fallbackInfo),
+          hasItemsArray: Array.isArray(fallbackInfo?.items),
+          itemsCount: fallbackInfo?.items?.length ?? 0,
+          version: fallbackInfo?.version ?? null,
+        });
+      }
+
+      if (!items || items.length === 0) {
+        console.error(
+          "[TemplatesModal] Bloqueado: sem itens mesmo apos fallback",
+          {
+            dataInfo,
+          },
+        );
         alert(
-          "Dados ainda não carregados. Aguarde um momento e tente novamente.",
+          "Dados ainda não carregados. Verifique o index.json e tente novamente.",
         );
         return;
       }
 
       // Buscar detalhes completos dos códigos
       const fullCodes = template.codes
-        .map((code) => dataInfo.items.find((item) => item.code === code))
+        .map((code) => items.find((item) => item.code === code))
         .filter(Boolean); // Remove códigos não encontrados
+
+      console.log("[TemplatesModal] Resultado da resolucao de codigos:", {
+        requestedCodes: template.codes.length,
+        resolvedCodes: fullCodes.length,
+      });
 
       if (fullCodes.length === 0) {
         alert("Nenhum código válido encontrado neste template.");
@@ -72,12 +120,17 @@ export default function TemplatesModal({ onClose, onApplyTemplate, dataInfo }) {
       await new Promise((resolve) => setTimeout(resolve, 800));
       onClose();
     } catch (error) {
-      console.error("Erro ao aplicar template:", error);
+      console.error("[TemplatesModal] Erro ao aplicar template:", {
+        message: error?.message,
+        stack: error?.stack,
+      });
       trackEvent("template_error", {
         template_id: template.id,
         error: error.message,
       });
-      alert("Erro ao aplicar template. Tente novamente.");
+      alert(
+        `Erro ao aplicar template. ${error?.message || "Tente novamente."}`,
+      );
     } finally {
       setApplying(false);
       setSelectedTemplate(null);

@@ -44,3 +44,5 @@ temp/
 # Package locks (opcional)
 package-lock.json
 .old/
+
+proximos-passos.txt

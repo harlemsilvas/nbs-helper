@@ -7,7 +7,12 @@
  */
 export const trackEvent = (eventName, params = {}) => {
   if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', eventName, params);
+    try {
+      window.gtag('event', eventName, params);
+    } catch (error) {
+      // Em ambientes com bloqueadores/anti-tracking, nunca quebrar o fluxo da UI.
+      console.warn('[analytics] Evento bloqueado/ignorado:', eventName, error);
+    }
   }
 };
 
