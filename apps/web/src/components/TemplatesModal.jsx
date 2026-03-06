@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Download, X, Sparkles, CheckCircle2 } from "lucide-react";
 import templatesData from "../data/templates.json";
 import { trackEvent } from "../services/analytics";
@@ -32,9 +32,27 @@ const colorMap = {
     "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 border-yellow-300 dark:border-yellow-700",
 };
 
+function buildItemsByCodeMap(items) {
+  if (!Array.isArray(items) || items.length === 0) return null;
+  return new Map(items.map((item) => [item.code, item]));
+}
+
 export default function TemplatesModal({ onClose, onApplyTemplate, dataInfo }) {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [applying, setApplying] = useState(false);
+  const [fallbackItems, setFallbackItems] = useState(null);
+
+  const primaryItems = Array.isArray(dataInfo?.items) ? dataInfo.items : null;
+
+  const primaryItemsByCode = useMemo(
+    () => buildItemsByCodeMap(primaryItems),
+    [primaryItems],
+  );
+
+  const fallbackItemsByCode = useMemo(
+    () => buildItemsByCodeMap(fallbackItems),
+    [fallbackItems],
+  );
 
   useEffect(() => {
     console.log("[TemplatesModal] dataInfo recebido:", {
@@ -45,9 +63,41 @@ export default function TemplatesModal({ onClose, onApplyTemplate, dataInfo }) {
     });
   }, [dataInfo]);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    async function preloadFallbackIndex() {
+      if (primaryItems) return;
+
+      try {
+        await loadIndex();
+        const info = getDatasetInfo();
+        const items = Array.isArray(info?.items) ? info.items : null;
+
+        if (!cancelled && items) {
+          setFallbackItems(items);
+        }
+      } catch (error) {
+        console.warn(
+          "[TemplatesModal] Falha no preload de index para templates:",
+          error,
+        );
+      }
+    }
+
+    preloadFallbackIndex();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [primaryItems]);
+
   const handleApplyTemplate = async (template) => {
     setApplying(true);
     setSelectedTemplate(template.id);
+
+    // Permite a UI renderizar o estado de carregamento antes do processamento.
+    await new Promise((resolve) => setTimeout(resolve, 0));
 
     try {
       console.log("[TemplatesModal] Tentando aplicar template:", {
@@ -59,7 +109,8 @@ export default function TemplatesModal({ onClose, onApplyTemplate, dataInfo }) {
         itemsCount: dataInfo?.items?.length ?? 0,
       });
 
-      let items = Array.isArray(dataInfo?.items) ? dataInfo.items : null;
+      let items = primaryItems ?? fallbackItems;
+      let itemsByCode = primaryItems ? primaryItemsByCode : fallbackItemsByCode;
 
       // Fallback resiliente: tenta carregar/ler o indice no proprio modal.
       if (!items) {
@@ -69,6 +120,11 @@ export default function TemplatesModal({ onClose, onApplyTemplate, dataInfo }) {
         await loadIndex();
         const fallbackInfo = getDatasetInfo();
         items = Array.isArray(fallbackInfo?.items) ? fallbackInfo.items : null;
+        itemsByCode = buildItemsByCodeMap(items);
+
+        if (items) {
+          setFallbackItems(items);
+        }
 
         console.log("[TemplatesModal] Fallback dataset:", {
           hasFallbackInfo: Boolean(fallbackInfo),
@@ -92,8 +148,12 @@ export default function TemplatesModal({ onClose, onApplyTemplate, dataInfo }) {
       }
 
       // Buscar detalhes completos dos códigos
+      if (!itemsByCode) {
+        itemsByCode = buildItemsByCodeMap(items);
+      }
+
       const fullCodes = template.codes
-        .map((code) => items.find((item) => item.code === code))
+        .map((code) => itemsByCode?.get(code))
         .filter(Boolean); // Remove códigos não encontrados
 
       console.log("[TemplatesModal] Resultado da resolucao de codigos:", {
