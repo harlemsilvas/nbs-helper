@@ -46,3 +46,12 @@ package-lock.json
 .old/
 
 proximos-passos.txt
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
